@@ -1,13 +1,14 @@
 import axios from "axios";
 import React from "react";
 import Cookies from 'universal-cookie';
+import {sendApiPostRequest} from "./ApiRequests";
 
 class SignUpPage extends React.Component {
     state = {
         username: "",
         email: "",
         password: "",
-        text:""
+        text: ""
     }
 
     componentDidMount() {
@@ -15,23 +16,25 @@ class SignUpPage extends React.Component {
     }
 
     signUp = () => {
-        axios.post("http://localhost:9124/add-user", {
-            params: {
-                username: this.state.username,
-                email: this.state.email,
-                password: this.state.password
-            }
-        }).then(response => {
+        sendApiPostRequest("http://localhost:9124/add-user", {
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password
+        }, (response) => {
             if (response.data.success) {
                 console.log("נרשמת בהצלחה");
-                this.setState({ text: "נרשמת בהצלחה" });
+                this.setState({text: "נרשמת בהצלחה"});
             } else {
-                console.log("לא נרשמת בהצלחה");
-                this.setState({ text: response.data.errorCode });
-                this.setState({ text: "לא נרשמת בהצלחה" });
+                if (response.data.errorCode === 2)
+                    this.setState({text: "אין שם משתמש"});
+                if (response.data.errorCode === 7)
+                    this.setState({text: "אין מייל"});
+                if (response.data.errorCode === 6)
+                    this.setState({text: "מייל לא תקין"});
+                if (response.data.errorCode === 11)
+                    this.setState({text: "אין סיסמה"});
             }
         })
-
     }
 
     inputChange = (key, event) => {
@@ -80,9 +83,6 @@ class SignUpPage extends React.Component {
                         </td>
                         <td>
                             {this.state.text}
-                            {this.state.username}
-                            {this.state.email}
-                            {this.state.password}
                         </td>
                     </tr>
                 </table>

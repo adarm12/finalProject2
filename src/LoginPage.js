@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import Cookies from 'universal-cookie';
+import {sendApiGetRequest, sendApiPostRequest} from "./ApiRequests";
 
 class LoginPage extends React.Component {
     state = {
@@ -15,16 +16,16 @@ class LoginPage extends React.Component {
     }
 
     login = () => {
-        axios.post("http://localhost:9124/login", {
-                email:this.state.email ,
-                password: this.state.password
-        }).then(response => {
+        sendApiPostRequest("http://localhost:9124/login", {
+            email: this.state.email,
+            password: this.state.password,
+        }, (response) => {
             if (response.data.success) {
                 console.log("התחברת בהצלחה");
-                this.setState({ text: "התחברת בהצלחה" });
+                this.setState({text: "התחברת בהצלחה"});
             } else {
                 console.log("לא התחברת בהצלחה");
-                this.setState({ text: "לא התחברת בהצלחה" });
+                this.setState({text: "לא התחברת בהצלחה"});
             }
         })
     }

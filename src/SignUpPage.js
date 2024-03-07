@@ -5,10 +5,10 @@ import {sendApiPostRequest} from "./ApiRequests";
 
 class SignUpPage extends React.Component {
     state = {
-        username: "",
-        email: "",
-        password: "",
-        text: ""
+        username: null,
+        email: null,
+        password: null,
+        text: null
     }
 
     componentDidMount() {
@@ -25,13 +25,13 @@ class SignUpPage extends React.Component {
                 console.log("נרשמת בהצלחה");
                 this.setState({text: "נרשמת בהצלחה"});
             } else {
-                if (response.data.errorCode === 2)
+                if (response.data.errorCode === 3)
                     this.setState({text: "אין שם משתמש"});
                 if (response.data.errorCode === 7)
                     this.setState({text: "אין מייל"});
                 if (response.data.errorCode === 6)
                     this.setState({text: "מייל לא תקין"});
-                if (response.data.errorCode === 11)
+                if (response.data.errorCode === 4)
                     this.setState({text: "אין סיסמה"});
             }
         })

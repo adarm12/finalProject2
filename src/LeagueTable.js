@@ -1,13 +1,13 @@
 import React from "react";
 
-class DashboardPage extends React.Component{
+class LeagueTable extends React.Component{
     render() {
         return(
             <div>
-                Dashboard
+               <button>League Table</button>
             </div>
         )
     }
 }
 
-export default DashboardPage;
+export default LeagueTable;

@@ -1,8 +1,8 @@
 import React from "react";
 
-class GamblingPage extends React.Component{
+class GamblingPage extends React.Component {
     render() {
-        return(
+        return (
             <div>
                 <button>Gambling Page</button>
             </div>

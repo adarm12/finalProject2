@@ -1,16 +1,19 @@
+.App {
+     background-image: url("background.png");
+     background-size: cover;
+     background-position: center center;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     height: 750px;
+    opacity: 0.9;
+ }
+
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
 
-/* {*/
-/*    background-image: url("background.png");*/
-/*    background-size: cover;*/
-/*    background-repeat: no-repeat;*/
-/*    background-attachment: fixed;*/
-
-/*}*/
 
 .DSignup {
     display: flex;

@@ -6,25 +6,18 @@ import {BrowserRouter, Route, Routes, NavLink, Link} from "react-router-dom";
 import LeagueTable from "./LeagueTable";
 import GamblingPage from "./GamblingPage";
 import LiveDashboard from "./LiveDashboard";
+import EditProfilePage from "./EditProfilePage";
 
 class LoginPage extends React.Component {
     state = {
         username: "",
         email: "",
         password: "",
-
-        newUsername: "",
-        newPassword: "",
-        errorCode: null,
-        editProfile: false,
-        viewProfile: false,
+        success: false,
         connectionMessage: "",
-        editMessage: "",
-        // text: "",
     }
 
     componentDidMount() {
-
     }
 
     login = () => {
@@ -35,7 +28,7 @@ class LoginPage extends React.Component {
         }, (response) => {
             if (response.data.success) {
                 console.log("התחברת בהצלחה");
-                this.setState({connectionMessage: "התחברת בהצלחה"});
+                this.setState({success: true});
                 const cookies = new Cookies(null, {path: '/'});
                 cookies.set('id', response.data.id);
                 cookies.set('secret', response.data.secret);
@@ -56,26 +49,6 @@ class LoginPage extends React.Component {
         })
     }
 
-    edit = () => {
-        sendApiPostRequest("http://localhost:9124/edit-user", {
-            email: this.state.email,
-            newUsername: this.state.newUsername,
-            password: this.state.password,
-            newPassword: this.state.newPassword,
-        }, (response) => {
-            if (response.data.success) {
-                console.log("הפרטים החדשים נשמרו בהצלחה");
-                this.setState({editMessage: "הפרטים החדשים נשמרו בהצלחה"});
-            } else {
-                if (response.data.errorCode === 1)
-                    this.setState({editMessage: "שם משתמש תפוס"});
-                if (this.state.newPassword === "")
-                    this.setState({editMessage: "אין סיסמה"});
-                if (this.state.newUsername === "")
-                    this.setState({editMessage: "אין שם משתמש"});
-            }
-        })
-    }
 
     // errorMessage = (errorCode, messageToEdit) => {
     //     switch (errorCode) {
@@ -110,126 +83,52 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div>
-                {this.state.connectionMessage !== "התחברת בהצלחה" ?
-                    <table>
-                        <tr>
-                            <td>
-                                username:
-                            </td>
-                            <td>
-                                <input type="text"
-                                       value={this.state.username}
-                                       onChange={(event) => this.inputChange("username", event)}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                email:
-                            </td>
-                            <td>
-                                <input type="text"
-                                       value={this.state.email}
-                                       onChange={(event) => this.inputChange("email", event)}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                password:
-                            </td>
-                            <td>
-                                <input type={"password"}
-                                       value={this.state.password}
-                                       onChange={(event) => this.inputChange("password", event)}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button onClick={this.login}>Login</button>
-                            </td>
-                            <td>
-                                {this.state.connectionMessage}
-                            </td>
-                        </tr>
-                    </table>
-                    :
+                {!this.state.success ?
                     <div>
-                        {!this.state.editProfile ?
+                        <table>
                             <tr>
                                 <td>
-                                    <button onClick={() => this.setState({editProfile: true})}>edit profile</button>
+                                    username:
                                 </td>
-                                <td  className="Pages">
-                                    <LeagueTable></LeagueTable>
-                                    <GamblingPage></GamblingPage>
-                                    <GamblingPage></GamblingPage>
-                                    <LiveDashboard></LiveDashboard>
+                                <td>
+                                    <input type="text"
+                                           value={this.state.username}
+                                           onChange={(event) => this.inputChange("username", event)}/>
                                 </td>
                             </tr>
-                            :
-                            <div>
-                                {this.state.editMessage !== "הפרטים החדשים נשמרו בהצלחה" ?
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                email:
-                                            </td>
-                                            <td>
-                                                {this.state.email}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                username:
-                                            </td>
-                                            <td>
-                                                {this.state.username}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                new username:
-                                            </td>
-                                            <td>
-                                                <input type={"text"}
-                                                       value={this.state.newUsername}
-                                                       onChange={(event) => this.inputChange("newUsername", event)}/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                password:
-                                            </td>
-                                            <td>
-                                                {this.state.password}
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                new password:
-                                            </td>
-                                            <td>
-                                                <input type={"password"}
-                                                       value={this.state.newPassword}
-                                                       onChange={(event) => this.inputChange("newPassword", event)}/>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <button onClick={this.edit}>submit</button>
-                                            </td>
-                                            <td>
-                                                {this.state.editMessage}
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    :
-                                    <div>
-                                    </div>
-                                }
-                            </div>
-                        }
+                            <tr>
+                                <td>
+                                    email:
+                                </td>
+                                <td>
+                                    <input type="text"
+                                           value={this.state.email}
+                                           onChange={(event) => this.inputChange("email", event)}/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    password:
+                                </td>
+                                <td>
+                                    <input type={"password"}
+                                           value={this.state.password}
+                                           onChange={(event) => this.inputChange("password", event)}/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button onClick={this.login}>Login</button>
+                                </td>
+                                <td>
+                                    {this.state.connectionMessage}
+                                </td>
+                            </tr>
+                        </table>
+                    </div> :
+                    <div>
+                        <EditProfilePage username={this.state.username} passsword={this.state.password}
+                                         email={this.state.email}/>
                     </div>
                 }
             </div>

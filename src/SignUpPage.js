@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import Cookies from 'universal-cookie';
+import { MdEmail, MdPassword } from "react-icons/md";
 import {sendApiPostRequest} from "./ApiRequests";
 
 class SignUpPage extends React.Component {

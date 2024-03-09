@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import Cookies from 'universal-cookie';
-import {sendApiPostRequest} from "../ApiRequests";
+import {sendApiPostRequest} from "./ApiRequests";
 
 class SignUpPage extends React.Component {
     state = {
@@ -17,7 +17,7 @@ class SignUpPage extends React.Component {
     }
 
     signUp = () => {
-        sendApiPostRequest("http://localhost:9124/sign-up", {
+        sendApiPostRequest("http://localhost:9124/add-user", {
             username: this.state.username,
             email: this.state.email,
             password: this.state.password,
@@ -25,17 +25,17 @@ class SignUpPage extends React.Component {
         }, (response) => {
             if (response.data.success) {
                 console.log("נרשמת בהצלחה");
-                this.setState({message: "נרשמת בהצלחה"});
+                this.setState({text: "נרשמת בהצלחה"});
             } else {
-                console.log("***********Error")
+                console.log("***********Error");
                 if (response.data.errorCode === 3)
-                    this.setState({message: "אין שם משתמש"});
+                    this.setState({text: "אין שם משתמש"});
                 if (response.data.errorCode === 7)
-                    this.setState({message: "אין מייל"});
+                    this.setState({text: "אין מייל"});
                 if (response.data.errorCode === 6)
-                    this.setState({message: "מייל לא תקין"});
+                    this.setState({text: "מייל לא תקין"});
                 if (response.data.errorCode === 4)
-                    this.setState({message: "אין סיסמה"});
+                    this.setState({text: "אין סיסמה"});
                 // setTimeout(() => {
                 //     this.setState({text: ""}); // לאפס את ההודעה לאחר 5 שניות
                 // }, 5000);
@@ -48,7 +48,6 @@ class SignUpPage extends React.Component {
             [key]: event.target.value
         })
     }
-
 
     isValidEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -77,42 +76,41 @@ class SignUpPage extends React.Component {
         return (
             <div>
                 <div>
-                    <div>
-                        username:
-                        <input type="text"
-                               value={this.state.username}
-                               onChange={(event) => this.inputChange("username", event)}
-                               placeholder="הזן שם משתמש"
-                        />
-                    </div>
-                    <div>
-                        email:
-                        <input type="text"
-                               value={this.state.email}
-                               onChange={(event) => this.inputChange("email", event)}
-                               placeholder="הזן מייל"
-                        />
-                    </div>
-                    <div>
-                        Password:
-                        <input type={"password"}
-                               value={this.state.password}
-                               onChange={(event) => this.inputChange("password", event)}
-                               placeholder="הזן סיסמא"
-                        />
-                    </div>
-                    <div>
-                        Repeat Password: <input type={"password"}
-                                                value={this.state.repeatPassword}
-                                                onChange={(event) => this.inputChange("repeatPassword", event)}
-                                                placeholder="אימות סיסמא"
+                    username:
+                    <input type="text"
+                           value={this.state.username}
+                           onChange={(event) => this.inputChange("username", event)}
+                           placeholder="הזן שם משתמש"
                     />
-                    </div>
-
-                    <button onClick={this.signUp}>Sign Up</button>
-                    {this.state.message}
-
                 </div>
+                <div>
+                    email:
+                    <input type="text"
+                           value={this.state.email}
+                           onChange={(event) => this.inputChange("email", event)}
+                           placeholder="הזן מייל"
+                    />
+                </div>
+                <div>
+                    Password:
+                    <input type={"password"}
+                           value={this.state.password}
+                           onChange={(event) => this.inputChange("password", event)}
+                           placeholder="הזן סיסמא"
+                    />
+                </div>
+
+                <div>
+                    Repeat Password: <input type={"password"}
+                                            value={this.state.repeatPassword}
+                                            onChange={(event) => this.inputChange("repeatPassword", event)}
+                                            placeholder="אימות סיסמא"
+                />
+                </div>
+
+                <button onClick={this.signUp}>Sign Up</button>
+
+                {this.state.text}
             </div>
         )
     }

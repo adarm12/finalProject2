@@ -9,7 +9,7 @@ class SignUpPage extends React.Component {
         email: "",
         password: "",
         repeatPassword: "",
-        message: ""
+        text: ""
     }
 
     componentDidMount() {
@@ -74,38 +74,39 @@ class SignUpPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={"DSignup"}>
                 <div>
-                    username:
                     <input type="text"
                            value={this.state.username}
                            onChange={(event) => this.inputChange("username", event)}
                            placeholder="הזן שם משתמש"
                     />
+                    <FaRegUser className="icon"/>
                 </div>
                 <div>
-                    email:
                     <input type="text"
                            value={this.state.email}
                            onChange={(event) => this.inputChange("email", event)}
                            placeholder="הזן מייל"
                     />
+                    <MdEmail className="icon"/>
                 </div>
                 <div>
-                    Password:
                     <input type={"password"}
                            value={this.state.password}
                            onChange={(event) => this.inputChange("password", event)}
                            placeholder="הזן סיסמא"
                     />
+                    <MdPassword className="icon"/>
                 </div>
 
                 <div>
-                    Repeat Password: <input type={"password"}
-                                            value={this.state.repeatPassword}
-                                            onChange={(event) => this.inputChange("repeatPassword", event)}
-                                            placeholder="אימות סיסמא"
-                />
+                    <input type={"password"}
+                           value={this.state.repeatPassword}
+                           onChange={(event) => this.inputChange("repeatPassword", event)}
+                           placeholder="אימות סיסמא"
+                    />
+                    <MdPassword className="icon"/>
                 </div>
 
                 <button onClick={this.signUp}>Sign Up</button>

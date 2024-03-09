@@ -25,18 +25,18 @@ class App extends React.Component {
                 <BrowserRouter>
                     {this.state.showButtons ?
                         <div className="NavLink">
-                                <div>
-                                    <button onClick={() => this.setState({login: true,showButtons: false,title:"Login" })}>
+                                <div className={"nav-button"}>
+                                    <button className={"btn"} onClick={() => this.setState({login: true,showButtons: false,title:"Login" })}>
                                         <NavLink style={{margin: "30px"}} to={"/login"}>Login</NavLink>
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={() => this.setState({add: true,showButtons: false, title:"Sign up"})}>
-                                        <NavLink style={{margin: "30px"}} to={"/add-user"}>Sign up</NavLink>
+                                    <button className={"btn"} onClick={() => this.setState({add: true,showButtons: false, title:"Sign up"})}>
+                                        <NavLink style={{margin: "30px"}} to={"/signup"}>Sign up</NavLink>
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={() => this.setState({guest: true, showButtons: false, title:"guest"})}>
+                                    <button className={"btn"} onClick={() => this.setState({guest: true, showButtons: false, title:"guest"})}>
                                         <NavLink style={{margin: "30px"}} to={"/guest"}>Continue as a guest</NavLink>
                                     </button>
                                 </div>
@@ -47,7 +47,7 @@ class App extends React.Component {
                     }
                     <Routes>
                         <Route path={"/login"} element={<LoginPage/>}/>
-                        <Route path={"/add-user"} element={<SignUpPage/>}/>
+                        <Route path={"/signup"} element={<SignUpPage/>}/>
                         <Route path={"/guest"} element={<GuestPage/>}/>
                     </Routes>
                 </BrowserRouter>

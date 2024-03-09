@@ -1,13 +1,11 @@
-import axios, {formToJSON} from "axios";
 import React from "react";
 import Cookies from 'universal-cookie';
 import {sendApiGetRequest, sendApiPostRequest} from "./ApiRequests";
-import {BrowserRouter, Route, Routes, NavLink, Link} from "react-router-dom";
 import LeagueTable from "./LeagueTable";
 import GamblingPage from "./GamblingPage";
 import LiveDashboard from "./LiveDashboard";
 
-class LoginPage extends React.Component {
+class EditProfilePage extends React.Component {
     state = {
         username: "",
         email: "",
@@ -237,4 +235,4 @@ class LoginPage extends React.Component {
     }
 }
 
-export default LoginPage;
+export default EditProfilePage;

@@ -17,11 +17,11 @@ class SignUpPage extends React.Component {
     }
 
     signUp = () => {
-        sendApiPostRequest("http://localhost:9124/add-user", {
+        sendApiPostRequest("http://localhost:9124/sign-up", {
             username: this.state.username,
             email: this.state.email,
             password: this.state.password,
-            repeatPassword: this.state.repeatPassword
+            repeatPassword: this.state.repeatPassword,
         }, (response) => {
             if (response.data.success) {
                 console.log("נרשמת בהצלחה");

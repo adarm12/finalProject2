@@ -1,20 +1,21 @@
 import axios, {formToJSON} from "axios";
 import React from "react";
 import Cookies from 'universal-cookie';
-import {sendApiGetRequest, sendApiPostRequest} from "./ApiRequests";
+import {sendApiGetRequest, sendApiPostRequest} from "../ApiRequests";
 import {BrowserRouter, Route, Routes, NavLink, Link} from "react-router-dom";
-import LeagueTable from "./LeagueTable";
-import GamblingPage from "./GamblingPage";
-import LiveDashboard from "./LiveDashboard";
+import LeagueTable from "../LeagueTable";
+import GamblingPage from "../GamblingPage";
+import LiveDashboard from "../LiveDashboard";
 
 class LoginPage extends React.Component {
     state = {
-        email: null,
         username: null,
-        newUsername: null,
+        email: null,
         password: null,
-        newPassword: null,
         errorCode: null,
+
+        newUsername: null,
+        newPassword: null,
         editProfile: false,
         viewProfile: false,
         connectionMessage: "",
@@ -110,54 +111,34 @@ class LoginPage extends React.Component {
         return (
             <div>
                 {this.state.connectionMessage !== "התחברת בהצלחה" ?
-                    <table>
-                        <tr>
-                            <td>
-                                username:
-                            </td>
-                            <td>
-                                <input type="text"
-                                       value={this.state.username}
-                                       onChange={(event) => this.inputChange("username", event)}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                email:
-                            </td>
-                            <td>
-                                <input type="text"
-                                       value={this.state.email}
-                                       onChange={(event) => this.inputChange("email", event)}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                password:
-                            </td>
-                            <td>
-                                <input type={"password"}
-                                       value={this.state.password}
-                                       onChange={(event) => this.inputChange("password", event)}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button onClick={this.login}>Login</button>
-                            </td>
-                            <td>
-                                {this.state.connectionMessage}
-                            </td>
-                        </tr>
-                    </table>
-                    :
                     <div>
+                        username:
+                        <input type="text"
+                               value={this.state.username}
+                               onChange={(event) => this.inputChange("username", event)}
+                               placeholder="Enter user name"
+                        />
+                        email:
+                        <input type="text"
+                               value={this.state.email}
+                               onChange={(event) => this.inputChange("email", event)}
+                               placeholder="Enter email"/>
+                        password:
+                        <input type={"password"}
+                               value={this.state.password}
+                               onChange={(event) => this.inputChange("password", event)}
+                               placeholder="Enter password"/>
+                        <button onClick={this.login}>Login</button>
+                        {this.state.connectionMessage}
+                    </div>
+                    :
+                    <table>
                         {!this.state.editProfile ?
                             <tr>
                                 <td>
                                     <button onClick={() => this.setState({editProfile: true})}>edit profile</button>
                                 </td>
-                                <td  className="Pages">
+                                <td className="Pages">
                                     <LeagueTable></LeagueTable>
                                     <GamblingPage></GamblingPage>
                                     <GamblingPage></GamblingPage>
@@ -229,7 +210,7 @@ class LoginPage extends React.Component {
                                 }
                             </div>
                         }
-                    </div>
+                    </table>
                 }
             </div>
         )

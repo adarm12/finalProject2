@@ -1,6 +1,4 @@
-import axios from "axios";
 import React from "react";
-import Cookies from 'universal-cookie';
 import { MdEmail, MdPassword } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import {sendApiPostRequest} from "./ApiRequests";
@@ -19,7 +17,7 @@ class SignUpPage extends React.Component {
     }
 
     signUp = () => {
-        sendApiPostRequest("http://localhost:9124/sign-up", {
+        sendApiPostRequest("http://localhost:9123/sign-up", {
             username: this.state.username,
             email: this.state.email,
             password: this.state.password,
@@ -51,28 +49,28 @@ class SignUpPage extends React.Component {
         })
     }
 
-    isValidEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    samePassword = () => {
-        return (this.state.password.equals(this.state.repeatPassword));
-    }
-
-    errorMessage = (data) => {
-        if (data.errorCode === 3)
-            this.setState({message: "אין שם משתמש"});
-        if (data.errorCode === 7)
-            this.setState({message: "אין מייל"});
-        if (data.errorCode === 6)
-            this.setState({message: "מייל לא תקין"});
-        if (data.errorCode === 4)
-            this.setState({message: "אין סיסמה"});
-        setTimeout(() => {
-            this.setState({text: ""}); // לאפס את ההודעה לאחר 5 שניות
-        }, 5000);
-    }
+    // isValidEmail = (email) => {
+    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //     return emailRegex.test(email);
+    // }
+    //
+    // samePassword = () => {
+    //     return (this.state.password.equals(this.state.repeatPassword));
+    // }
+    //
+    // errorMessage = (data) => {
+    //     if (data.errorCode === 3)
+    //         this.setState({message: "אין שם משתמש"});
+    //     if (data.errorCode === 7)
+    //         this.setState({message: "אין מייל"});
+    //     if (data.errorCode === 6)
+    //         this.setState({message: "מייל לא תקין"});
+    //     if (data.errorCode === 4)
+    //         this.setState({message: "אין סיסמה"});
+    //     setTimeout(() => {
+    //         this.setState({text: ""}); // לאפס את ההודעה לאחר 5 שניות
+    //     }, 5000);
+    // }
 
     render() {
         return (
@@ -101,7 +99,6 @@ class SignUpPage extends React.Component {
                     />
                     <MdPassword className="icon"/>
                 </div>
-
                 <div>
                     <input type={"password"}
                            value={this.state.repeatPassword}
@@ -110,9 +107,7 @@ class SignUpPage extends React.Component {
                     />
                     <MdPassword className="icon"/>
                 </div>
-
                 <button onClick={this.signUp}>Sign Up</button>
-
                 {this.state.text}
             </div>
         )

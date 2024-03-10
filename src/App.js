@@ -1,6 +1,5 @@
 import React from "react";
 import './App.css';
-import axios from "axios";
 import {BrowserRouter, Route, Routes, NavLink, Link} from "react-router-dom";
 import LoginPage from "./LoginPage";
 import SignUpPage from "./SignUpPage";

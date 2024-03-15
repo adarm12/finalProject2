@@ -36,6 +36,12 @@ class SignUpPage extends React.Component {
                     this.setState({text: "מייל לא תקין"});
                 if (response.data.errorCode === 4)
                     this.setState({text: "אין סיסמה"});
+                if (response.data.errorCode === 12)
+                    this.setState({text: "סיסמה לא זהה"});
+                if (response.data.errorCode === 10)
+                    this.setState({text: "אורך הסיסמה צריך להיות לפחות 8 תווים"});
+                if (response.data.errorCode === 14)
+                    this.setState({text: "הסיסמה צריכה להכיל לפחות אחד מהתווים @ או !"});
                 // setTimeout(() => {
                 //     this.setState({text: ""}); // לאפס את ההודעה לאחר 5 שניות
                 // }, 5000);

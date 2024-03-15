@@ -25,13 +25,14 @@ class LoginPage extends React.Component {
 
     login = () => {
         sendApiPostRequest("http://localhost:9123/login", {
-            username: this.state.username,
+            // username: this.state.username,
             email: this.state.email,
             password: this.state.password,
         }, (response) => {
             if (response.data.success) {
                 console.log("התחברת בהצלחה");
                 this.setState({connectionMessage: "התחברת בהצלחה"});
+                this.setState({username: response.data.user.username});
                 const cookies = new Cookies(null, {path: '/'});
                 cookies.set('id', response.data.id);
                 cookies.set('secret', response.data.secret);
@@ -44,7 +45,7 @@ class LoginPage extends React.Component {
                     this.setState({connectionMessage: "שם משתמש לא קיים"});
                 if (response.data.errorCode === 3)
                     this.setState({connectionMessage: "אין שם משתמש"});
-                if (response.data.errorCode === 12)
+                if (response.data.errorCode === 13)
                     this.setState({connectionMessage: "מייל לא קיים"});
                 if (response.data.errorCode === 7)
                     this.setState({connectionMessage: "אין מייל"});
@@ -64,13 +65,6 @@ class LoginPage extends React.Component {
                 <div>
                     {this.state.connectionMessage !== "התחברת בהצלחה" ?
                         <div>
-                            <div>
-                                <input type={"text"}
-                                       value={this.state.username}
-                                       onChange={(event) => this.inputChange("username", event)}
-                                       placeholder="הזן שם משתמש"/>
-                                <FaRegUser className="icon"/>
-                            </div>
                             <div>
                                 <input type={"text"}
                                        value={this.state.email}

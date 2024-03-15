@@ -53,11 +53,11 @@ class EditProfilePage extends React.Component {
                     {this.state.editMessage !== "הפרטים החדשים נשמרו בהצלחה" ?
                         <div>
                             <div>
-                                <input placeholder={this.stateFromLoginPage.email}/>
+                                <input type="text" readOnly value={this.stateFromLoginPage.email}/>
                                 <MdEmail className="icon"/>
                             </div>
                             <div>
-                                <input placeholder= {this.stateFromLoginPage.username}/>
+                                <input type="text" readOnly value={this.stateFromLoginPage.username}/>
                                 <FaRegUser className="icon"/>
                             </div>
                             <div>
@@ -68,7 +68,7 @@ class EditProfilePage extends React.Component {
                                 <FaRegUser className="icon"/>
                             </div>
                             <div>
-                                <input placeholder={this.stateFromLoginPage.password}/>
+                                <input type="text" readOnly value={this.stateFromLoginPage.password}/>
                                 <MdPassword className="icon"/>
                             </div>
                             <div>

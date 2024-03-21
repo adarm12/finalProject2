@@ -25,17 +25,17 @@ class App extends React.Component {
                     {this.state.showButtons ?
                         <div className="NavLink">
                                 <div className={"nav-button"}>
-                                    <button className={"btn"} onClick={() => this.setState({login: true,showButtons: false,title:"Login" })}>
+                                    <button className={"btn"} onClick={() => this.setState({login: true,showButtons: false,title:false })}>
                                         <NavLink style={{margin: "30px"}} to={"/login"}>Login</NavLink>
                                     </button>
                                 </div>
                                 <div>
-                                    <button className={"btn"} onClick={() => this.setState({add: true,showButtons: false, title:"Sign up"})}>
+                                    <button className={"btn"} onClick={() => this.setState({add: true,showButtons: false, title:false})}>
                                         <NavLink style={{margin: "30px"}} to={"/signup"}>Sign up</NavLink>
                                     </button>
                                 </div>
                                 <div>
-                                    <button className={"btn"} onClick={() => this.setState({guest: true, showButtons: false, title:"guest"})}>
+                                    <button className={"btn"} onClick={() => this.setState({guest: true, showButtons: false, title:false})}>
                                         <NavLink style={{margin: "30px"}} to={"/guest"}>Continue as a guest</NavLink>
                                     </button>
                                 </div>

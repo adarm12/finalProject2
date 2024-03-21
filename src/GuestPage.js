@@ -1,7 +1,6 @@
 import React from "react";
-import LeagueTable from "./LeagueTable";
-import GamblingPage from "./GamblingPage";
 import LiveDashboard from "./LiveDashboard";
+import GamblingPage from "./GamblingPage";
 
 class GuestPage extends React.Component {
     render() {
@@ -10,9 +9,8 @@ class GuestPage extends React.Component {
                 <table>
                     <tr>
                         <td className="Pages">
-                            <LeagueTable></LeagueTable>
-                            <GamblingPage></GamblingPage>
                             <LiveDashboard></LiveDashboard>
+                            <GamblingPage></GamblingPage>
                         </td>
                     </tr>
                 </table>

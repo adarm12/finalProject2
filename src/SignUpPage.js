@@ -29,19 +29,19 @@ class SignUpPage extends React.Component {
             } else {
                 console.log("***********Error");
                 if (response.data.errorCode === 3)
-                    this.setState({text: "אין שם משתמש"});
+                    this.setState({text: "No username entered"});
                 if (response.data.errorCode === 7)
-                    this.setState({text: "אין מייל"});
+                    this.setState({text: "No email entered"});
                 if (response.data.errorCode === 6)
-                    this.setState({text: "מייל לא תקין"});
+                    this.setState({text: "Invalid mail"});
                 if (response.data.errorCode === 4)
-                    this.setState({text: "אין סיסמה"});
+                    this.setState({text: "No password entered"});
                 if (response.data.errorCode === 12)
-                    this.setState({text: "סיסמה לא זהה"});
+                    this.setState({text: "Password is not the same"});
                 if (response.data.errorCode === 10)
-                    this.setState({text: "אורך הסיסמה צריך להיות לפחות 8 תווים"});
+                    this.setState({text: "Password length should be at least 8 characters"});
                 if (response.data.errorCode === 14)
-                    this.setState({text: "הסיסמה צריכה להכיל לפחות אחד מהתווים @ או !"});
+                    this.setState({text: "The password must contain @ or !"});
                 // setTimeout(() => {
                 //     this.setState({text: ""}); // לאפס את ההודעה לאחר 5 שניות
                 // }, 5000);
@@ -80,12 +80,13 @@ class SignUpPage extends React.Component {
 
     render() {
         return (
-            <div className={"DSignup"}>
+            <div className={"DSignUp"}>
+                <label> Sign Up </label>
                 <div>
                     <input type="text"
                            value={this.state.username}
                            onChange={(event) => this.inputChange("username", event)}
-                           placeholder="הזן שם משתמש"
+                           placeholder="Enter username"
                     />
                     <FaRegUser className="icon"/>
                 </div>
@@ -93,7 +94,7 @@ class SignUpPage extends React.Component {
                     <input type="text"
                            value={this.state.email}
                            onChange={(event) => this.inputChange("email", event)}
-                           placeholder="הזן מייל"
+                           placeholder="Enter email"
                     />
                     <MdEmail className="icon"/>
                 </div>
@@ -101,7 +102,7 @@ class SignUpPage extends React.Component {
                     <input type={"password"}
                            value={this.state.password}
                            onChange={(event) => this.inputChange("password", event)}
-                           placeholder="הזן סיסמא"
+                           placeholder="Enter password"
                     />
                     <MdPassword className="icon"/>
                 </div>
@@ -109,7 +110,7 @@ class SignUpPage extends React.Component {
                     <input type={"password"}
                            value={this.state.repeatPassword}
                            onChange={(event) => this.inputChange("repeatPassword", event)}
-                           placeholder="אימות סיסמא"
+                           placeholder="Repeat password"
                     />
                     <MdPassword className="icon"/>
                 </div>

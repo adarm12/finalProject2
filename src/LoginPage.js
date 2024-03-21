@@ -1,16 +1,17 @@
 import React from "react";
 import Cookies from 'universal-cookie';
 import {sendApiGetRequest, sendApiPostRequest} from "./ApiRequests";
-import LeagueTable from "./LeagueTable";
 import GamblingPage from "./GamblingPage";
+import PersonalGamblingPage from "./PersonalGamblingPage";
 import LiveDashboard from "./LiveDashboard";
-import PersonalGamblingDashboard from "./PersonalGamblingDashboard";
 import EditProfilePage from "./EditProfilePage";
 import {FaRegUser} from "react-icons/fa";
 import {MdEmail, MdPassword} from "react-icons/md";
 
+
 class LoginPage extends React.Component {
     state = {
+        title: "Login",
         username: "",
         email: "",
         password: "",
@@ -30,25 +31,25 @@ class LoginPage extends React.Component {
             password: this.state.password,
         }, (response) => {
             if (response.data.success) {
-                console.log("התחברת בהצלחה");
-                this.setState({connectionMessage: "התחברת בהצלחה"});
+                console.log("Successfully connected");
+                this.setState({connectionMessage: "Successfully connected"});
                 this.setState({username: response.data.user.username});
                 const cookies = new Cookies(null, {path: '/'});
                 cookies.set('id', response.data.id);
                 cookies.set('secret', response.data.secret);
             } else {
                 if (response.data.errorCode === 11)
-                    this.setState({connectionMessage: "סיסמה לא נכונה"});
+                    this.setState({connectionMessage: "Invalid password"});
                 if (response.data.errorCode === 4)
-                    this.setState({connectionMessage: "אין סיסמה"});
+                    this.setState({connectionMessage: "No password entered"});
                 if (response.data.errorCode === 2)
-                    this.setState({connectionMessage: "שם משתמש לא קיים"});
+                    this.setState({connectionMessage: "User name does not exist"});
                 if (response.data.errorCode === 3)
-                    this.setState({connectionMessage: "אין שם משתמש"});
+                    this.setState({connectionMessage: "No username entered"});
                 if (response.data.errorCode === 13)
-                    this.setState({connectionMessage: "מייל לא קיים"});
+                    this.setState({connectionMessage: "Email does not exist"});
                 if (response.data.errorCode === 7)
-                    this.setState({connectionMessage: "אין מייל"});
+                    this.setState({connectionMessage: "No email entered"});
             }
         })
     }
@@ -62,21 +63,22 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div className={"Login"}>
+                <label> {this.state.title} </label>
                 <div>
-                    {this.state.connectionMessage !== "התחברת בהצלחה" ?
+                    {this.state.connectionMessage !== "Successfully connected" ?
                         <div>
                             <div>
                                 <input type={"text"}
                                        value={this.state.email}
                                        onChange={(event) => this.inputChange("email", event)}
-                                       placeholder="הזן מייל"/>
+                                       placeholder="Enter email"/>
                                 <MdEmail className="icon"/>
                             </div>
                             <div>
                                 <input type={"password"}
                                        value={this.state.password}
                                        onChange={(event) => this.inputChange("password", event)}
-                                       placeholder="הזן סיסמא"/>
+                                       placeholder="Enter password"/>
                                 <MdPassword className="icon"/>
                             </div>
                             <button onClick={this.login}>Login</button>
@@ -86,11 +88,10 @@ class LoginPage extends React.Component {
                         <div>
                             {!this.state.editProfile ?
                                 <div>
-                                    <button onClick={() => this.setState({editProfile: true})}>edit profile</button>
+                                    <button onClick={() => this.setState({editProfile: true, title: ""})}>edit profile</button>
                                     <div className="Pages">
-                                        <LeagueTable></LeagueTable>
                                         <GamblingPage></GamblingPage>
-                                        <PersonalGamblingDashboard></PersonalGamblingDashboard>
+                                        <PersonalGamblingPage></PersonalGamblingPage>
                                         <LiveDashboard></LiveDashboard>
                                     </div>
                                 </div>

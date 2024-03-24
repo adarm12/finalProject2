@@ -1,12 +1,12 @@
 .App {
-     /*background-image: url("background.png");*/
-     /*background-size: cover;*/
-     /*background-position: center center;*/
-     /*background-repeat: no-repeat;*/
-     /*background-attachment: fixed;*/
-     height: 750px;
+    /*background-image: url("background.png");*/
+    /*background-size: cover;*/
+    /*background-position: center center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-attachment: fixed;*/
+    height: 750px;
     opacity: 0.9;
- }
+}
 
 * {
     margin: 0px;
@@ -30,6 +30,7 @@ table {
     border-collapse: collapse;
     width: 650px;
     margin: 0 auto;
+
 }
 
 td, tr {

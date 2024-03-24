@@ -15,11 +15,12 @@ class LiveDashboard extends React.Component {
             this.setState({matchupsList: response.data})
         });
     }
-    
+
     render() {
         return (
             <div>
                 <label> Live Dashboard </label>
+                <div></div>
                 <table>
                     <thead>
                     <tr>

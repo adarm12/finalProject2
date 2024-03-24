@@ -1,11 +1,9 @@
 import React from "react";
 import Cookies from 'universal-cookie';
 import {sendApiGetRequest, sendApiPostRequest} from "./ApiRequests";
-import GamblingPage from "./GamblingPage";
 import PersonalGamblingPage from "./PersonalGamblingPage";
 import LiveDashboard from "./LiveDashboard";
 import EditProfilePage from "./EditProfilePage";
-import {FaRegUser} from "react-icons/fa";
 import {MdEmail, MdPassword} from "react-icons/md";
 
 
@@ -88,8 +86,8 @@ class LoginPage extends React.Component {
                         </div>
                         :
                         <div>
-                            <div>
-                                {!this.state.editProfile ?
+                            {this.state.showButtons ?
+                                <div div className={"DSignUp"}>
                                     <div>
                                         <button onClick={() => this.setState({
                                             editProfile: true,
@@ -99,10 +97,6 @@ class LoginPage extends React.Component {
                                             Profile
                                         </button>
                                     </div>
-                                    :
-                                    <EditProfilePage stateFromLogin={this.state}/>
-                                }
-                                {!this.state.live ?
                                     <div>
                                         <button onClick={() => this.setState({
                                             live: true,
@@ -112,10 +106,6 @@ class LoginPage extends React.Component {
                                             Dashboard
                                         </button>
                                     </div>
-                                    :
-                                    <LiveDashboard></LiveDashboard>
-                                }
-                                {!this.state.personalGambling ?
                                     <div>
                                         <button onClick={() => this.setState({
                                             personalGambling: true,
@@ -125,10 +115,26 @@ class LoginPage extends React.Component {
                                             Gambling
                                         </button>
                                     </div>
-                                    :
-                                    <PersonalGamblingPage></PersonalGamblingPage>
-                                }
-                            </div>
+                                </div>
+                                :
+                                <div>
+                                    {this.state.editProfile ?
+                                        <EditProfilePage stateFromLogin={this.state}/>
+                                        :
+                                        <div></div>
+                                    }
+                                    {this.state.live ?
+                                        <LiveDashboard></LiveDashboard>
+                                        :
+                                        <div></div>
+                                    }
+                                    {this.state.personalGambling ?
+                                        <PersonalGamblingPage></PersonalGamblingPage>
+                                        :
+                                        <div></div>
+                                    }
+                                </div>
+                            }
                         </div>
                     }
                 </div>

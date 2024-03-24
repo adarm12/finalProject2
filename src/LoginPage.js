@@ -19,6 +19,7 @@ class LoginPage extends React.Component {
         editProfile: false,
         connectionMessage: "",
         live: false,
+        showButtons: true,
     }
 
     componentDidMount() {
@@ -63,11 +64,11 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div className={"DSignUp"}>
-                <label> {this.state.title} </label>
+            <div>
                 <div>
                     {this.state.connectionMessage !== "Successfully connected" ?
-                        <div>
+                        <div className={"DSignUp"}>
+                            <label> {this.state.title} </label>
                             <div>
                                 <input type={"text"}
                                        value={this.state.email}
@@ -87,31 +88,47 @@ class LoginPage extends React.Component {
                         </div>
                         :
                         <div>
-                            {!this.state.editProfile ?
-                                <div>
-                                    <button onClick={() => this.setState({editProfile: true, title: ""})}>Edit Profile
-                                    </button>
-                                </div>
-                                :
-                                <EditProfilePage stateFromLogin={this.state}/>
-                            }
-                            {!this.state.live ?
-                                <div>
-                                    <button onClick={() => this.setState({live: true, title: ""})}>Live Dashboard
-                                    </button>
-                                </div>
-                                :
-                                <LiveDashboard></LiveDashboard>
-                            }
-                            {!this.state.personalGambling ?
-                                <div>
-                                    <button onClick={() => this.setState({personalGambling: true, title: ""})}>Personal
-                                        Gambling
-                                    </button>
-                                </div>
-                                :
-                                <PersonalGamblingPage></PersonalGamblingPage>
-                            }
+                            <div>
+                                {!this.state.editProfile ?
+                                    <div>
+                                        <button onClick={() => this.setState({
+                                            editProfile: true,
+                                            showButtons: false,
+                                            title: ""
+                                        })}>Edit
+                                            Profile
+                                        </button>
+                                    </div>
+                                    :
+                                    <EditProfilePage stateFromLogin={this.state}/>
+                                }
+                                {!this.state.live ?
+                                    <div>
+                                        <button onClick={() => this.setState({
+                                            live: true,
+                                            showButtons: false,
+                                            title: ""
+                                        })}>Live
+                                            Dashboard
+                                        </button>
+                                    </div>
+                                    :
+                                    <LiveDashboard></LiveDashboard>
+                                }
+                                {!this.state.personalGambling ?
+                                    <div>
+                                        <button onClick={() => this.setState({
+                                            personalGambling: true,
+                                            showButtons: false,
+                                            title: ""
+                                        })}>Personal
+                                            Gambling
+                                        </button>
+                                    </div>
+                                    :
+                                    <PersonalGamblingPage></PersonalGamblingPage>
+                                }
+                            </div>
                         </div>
                     }
                 </div>

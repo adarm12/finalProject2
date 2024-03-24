@@ -6,14 +6,7 @@ class GuestPage extends React.Component {
     render() {
         return (
             <div>
-                <table>
-                    <tr>
-                        <td className="Pages">
-                            <LiveDashboard></LiveDashboard>
-                            <GamblingPage></GamblingPage>
-                        </td>
-                    </tr>
-                </table>
+                <LiveDashboard></LiveDashboard>
             </div>
         )
     }

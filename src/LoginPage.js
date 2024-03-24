@@ -18,6 +18,7 @@ class LoginPage extends React.Component {
         errorCode: null,
         editProfile: false,
         connectionMessage: "",
+        live: false,
     }
 
     componentDidMount() {
@@ -62,7 +63,7 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div className={"Login"}>
+            <div className={"DSignUp"}>
                 <label> {this.state.title} </label>
                 <div>
                     {this.state.connectionMessage !== "Successfully connected" ?
@@ -88,15 +89,28 @@ class LoginPage extends React.Component {
                         <div>
                             {!this.state.editProfile ?
                                 <div>
-                                    <button onClick={() => this.setState({editProfile: true, title: ""})}>edit profile</button>
-                                    <div className="Pages">
-                                        <GamblingPage></GamblingPage>
-                                        <PersonalGamblingPage></PersonalGamblingPage>
-                                        <LiveDashboard></LiveDashboard>
-                                    </div>
+                                    <button onClick={() => this.setState({editProfile: true, title: ""})}>Edit Profile
+                                    </button>
                                 </div>
                                 :
                                 <EditProfilePage stateFromLogin={this.state}/>
+                            }
+                            {!this.state.live ?
+                                <div>
+                                    <button onClick={() => this.setState({live: true, title: ""})}>Live Dashboard
+                                    </button>
+                                </div>
+                                :
+                                <LiveDashboard></LiveDashboard>
+                            }
+                            {!this.state.personalGambling ?
+                                <div>
+                                    <button onClick={() => this.setState({personalGambling: true, title: ""})}>Personal
+                                        Gambling
+                                    </button>
+                                </div>
+                                :
+                                <PersonalGamblingPage></PersonalGamblingPage>
                             }
                         </div>
                     }
@@ -110,6 +124,7 @@ class LoginPage extends React.Component {
 export default LoginPage;
 
 // errorMessage = (errorCode, messageToEdit) => {
+
 //     switch (errorCode) {
 //         case 11:
 //             this.setState({ [messageToEdit]: "סיסמה לא נכונה" });

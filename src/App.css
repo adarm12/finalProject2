@@ -1,9 +1,9 @@
 .App {
-     background-image: url("background.png");
-     background-size: cover;
-     background-position: center center;
-     background-repeat: no-repeat;
-     background-attachment: fixed;
+     /*background-image: url("background.png");*/
+     /*background-size: cover;*/
+     /*background-position: center center;*/
+     /*background-repeat: no-repeat;*/
+     /*background-attachment: fixed;*/
      height: 750px;
     opacity: 0.9;
  }
@@ -14,7 +14,6 @@
     box-sizing: border-box;
 }
 
-
 .DSignUp {
     display: flex;
     justify-content: center;
@@ -22,28 +21,23 @@
     align-items: center;
     min-height: 50Vh;
     background: cadetblue;
-    width: 350px;
-    height: 180px;
+    width: 1216px;
+    height: 600px;
 }
 
-.Login {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    min-height: 50Vh;
-    background: cadetblue;
-    width: 350px;
-    height: 180px;
+table {
+    display: table;
+    border-collapse: collapse;
+    width: 480px;
+    margin: 0 auto;
 }
 
-.Edit {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    min-height: 50Vh;
-    background: cadetblue;
-    width: 350px;
-    height: 180px;
+td, tr {
+    border: 1px solid black;
+    padding: 8px;
 }
+
+.column {
+    width: 40%;
+}
+

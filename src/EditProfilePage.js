@@ -56,7 +56,7 @@ class EditProfilePage extends React.Component {
 
     render() {
         return (
-            <div className={"Edit"}>
+            <div className={"DSignUp"}>
                 <label> Edit profile </label>
                 <div>
                     {this.state.editMessage !== "The new details have been successfully saved" ?

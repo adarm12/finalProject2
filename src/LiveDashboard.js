@@ -12,10 +12,10 @@ class LiveDashboard extends React.Component {
 
     startLeague = () => {
         sendApiPostRequest("http://localhost:9123/start-league", {}, (response) => {
-            this.setState({matchupsList: response.data});
+            this.setState({matchupsList: response.data})
         });
-    };
-
+    }
+    
     render() {
         return (
             <div>
@@ -24,20 +24,28 @@ class LiveDashboard extends React.Component {
                     <thead>
                     <tr>
                         <td>Round</td>
-                        <td>Home team</td>
-                        <td>Home team points</td>
-                        <td>Away team</td>
-                        <td>Away team points</td>
+                        <td>Home</td>
+                        <td>Off</td>
+                        <td>Def</td>
+                        <td>Points</td>
+                        <td>Away </td>
+                        <td>Off</td>
+                        <td>Def</td>
+                        <td>Points</td>
                     </tr>
                     </thead>
-                    {this.state.matchupsList.map((innerList, index) => (
-                        <tbody key={index}>
-                        {innerList.map((matchup, innerIndex) => (
-                            <tr key={innerIndex}>
+                    {this.state.matchupsList.map((roundList, matchupsIndex) => (
+                        <tbody key={matchupsIndex}>
+                        {roundList.map((matchup, roundIndex) => (
+                            <tr key={roundIndex}>
                                 <td>{matchup.round}</td>
                                 <td class="column">{matchup.team1.teamName}</td>
+                                <td>{matchup.team1.offensiveRating}</td>
+                                <td>{matchup.team1.defensiveRating}</td>
                                 <td>{matchup.team1.points}</td>
                                 <td class="column">{matchup.team2.teamName}</td>
+                                <td>{matchup.team2.offensiveRating}</td>
+                                <td>{matchup.team2.defensiveRating}</td>
                                 <td>{matchup.team2.points}</td>
                             </tr>
                         ))}

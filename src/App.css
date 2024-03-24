@@ -28,7 +28,7 @@
 table {
     display: table;
     border-collapse: collapse;
-    width: 480px;
+    width: 650px;
     margin: 0 auto;
 }
 
@@ -38,6 +38,6 @@ td, tr {
 }
 
 .column {
-    width: 40%;
+    width: 200px;
 }
 

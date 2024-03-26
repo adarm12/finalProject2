@@ -5,6 +5,7 @@ import PersonalGamblingPage from "./PersonalGamblingPage";
 import LiveDashboard from "./LiveDashboard";
 import EditProfilePage from "./EditProfilePage";
 import {MdEmail, MdPassword} from "react-icons/md";
+import LeagueTable from "./LeagueTable";
 
 
 class LoginPage extends React.Component {
@@ -17,6 +18,7 @@ class LoginPage extends React.Component {
         editProfile: false,
         connectionMessage: "",
         live: false,
+        leagueTable: false,
         showButtons: true,
     }
 
@@ -108,6 +110,14 @@ class LoginPage extends React.Component {
                                     </div>
                                     <div>
                                         <button onClick={() => this.setState({
+                                            leagueTable: true,
+                                            showButtons: false,
+                                            title: ""
+                                        })}>League Table
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button onClick={() => this.setState({
                                             personalGambling: true,
                                             showButtons: false,
                                             title: ""
@@ -125,6 +135,11 @@ class LoginPage extends React.Component {
                                     }
                                     {this.state.live ?
                                         <LiveDashboard></LiveDashboard>
+                                        :
+                                        <div></div>
+                                    }
+                                    {this.state.leagueTable ?
+                                        <LeagueTable></LeagueTable>
                                         :
                                         <div></div>
                                     }

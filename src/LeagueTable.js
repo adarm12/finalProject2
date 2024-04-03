@@ -6,8 +6,16 @@ class LeagueTable extends React.Component {
         teamsList: [],
     };
 
+
     componentDidMount() {
         this.teams();
+        this.refreshInterval = setInterval(() => {
+            this.teams();
+        }, 5000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.refreshInterval);
     }
 
     teams = () => {

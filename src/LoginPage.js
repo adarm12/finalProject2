@@ -89,7 +89,7 @@ class LoginPage extends React.Component {
                         :
                         <div>
                             {this.state.showButtons ?
-                                <div div className={"DSignUp"}>
+                                <div className={"DSignUp"}>
                                     <div>
                                         <button onClick={() => this.setState({
                                             editProfile: true,

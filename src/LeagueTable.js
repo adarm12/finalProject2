@@ -2,6 +2,7 @@ import React from "react";
 import {sendApiPostRequest} from "./ApiRequests";
 
 class LeagueTable extends React.Component {
+
     state = {
         teamsList: [],
     };

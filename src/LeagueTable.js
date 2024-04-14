@@ -13,6 +13,7 @@ class LeagueTable extends React.Component {
         this.refreshInterval = setInterval(() => {
             this.teams();
         }, 5000);
+
     }
 
     componentWillUnmount() {
@@ -25,11 +26,37 @@ class LeagueTable extends React.Component {
         });
     }
 
+    checkPoints() {
+        const copyList = [...this.state.teamsList];
+        let counter = 0;
+        let exist = false;
+        for (let i = 0; i < this.state.teamsList.length; i++) {
+            for (let i = 0; i < copyList.length; i++) {
+                if (this.state.teamsList[i].points === copyList[i].points) {
+                    counter++
+                    if (counter > 1) {
+                        exist = true;
+                    }
+                }
+            }
+        }
+        return exist;
+    }
+
+    sortTable = () => {
+        const listToSort = [...this.state.teamsList];
+        listToSort.sort((a, b) => b.points - a.points);
+        if (this.checkPoints()) {
+            listToSort.sort((a, b) => b.goalsDifference - a.goalsDifference);
+        }
+        this.setState({teamsList: listToSort});
+    }
+
+
     render() {
         return (
             <div>
                 <label>League Table</label>
-                <div></div>
                 <table style={{width: 800}}>
                     <thead>
                     <tr>
@@ -43,6 +70,7 @@ class LeagueTable extends React.Component {
                     </thead>
                     {this.state.teamsList.map((teams, teamsIndex) => (
                         <tbody>
+                        {this.sortTable()}
                         <tr key={teamsIndex}/>
                         <td style={{width: 200}}>{teams.teamName}</td>
                         <td>{teams.points}</td>

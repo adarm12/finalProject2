@@ -31,46 +31,52 @@ class LiveDashboard extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <label> Live Dashboard </label>
-                    <div></div>
-                    <label> Current Round </label>
-                    <table style={{width: 500}}>
-                        <thead>
-                        <tr>
-                            <td style={{width: 50}}>Round</td>
-                            <td style={{width: 200}}>Home</td>
-                            <td style={{width: 50}}></td>
-                            <td style={{width: 200}}>Away</td>
-                        </tr>
-                        </thead>
-                        {this.state.current.map((currentList, Index) => (
-                            <tbody>
-                            <tr key={Index}>
-                                <td>{currentList.round}</td>
-                                <td>{currentList.team1.teamName}</td>
-                                <td> VS</td>
-                                <td>{currentList.team2.teamName}</td>
+                <label> Live Dashboard </label>
+                <div></div>
+                {this.state.list.length !== 7 ?
+                    <div>
+                        <label> Current Round </label>
+                        <table style={{width: 600}}>
+                            <thead>
+                            <tr>
+                                <td style={{width: 50}}>Round</td>
+                                <td style={{width: 200}}>Home</td>
+                                <td style={{width: 50}}>Goals</td>
+                                <td style={{width: 50}}></td>
+                                <td style={{width: 200}}>Away</td>
+                                <td style={{width: 50}}>Goals</td>
                             </tr>
-                            </tbody>
-                        ))}
-                    </table>
-                </div>
+                            </thead>
+                            {this.state.current.map((currentList, Index) => (
+                                <tbody>
+                                <tr key={Index}>
+                                    <td>{currentList.round}</td>
+                                    <td>{currentList.team1.teamName}</td>
+                                    <td>{currentList.team1Goals}</td>
+                                    <td> VS</td>
+                                    <td>{currentList.team2.teamName}</td>
+                                    <td>{currentList.team2Goals}</td>
+                                </tr>
+                                </tbody>
+                            ))}
+                        </table>
+                    </div>
+                    :
+                    <label>
+                        The live rounds are over!
+                    </label>
+                }
                 {this.state.list.length > 0 ?
                     <div>
                         <label> Previous Rounds </label>
-                        <table>
+                        <table style={{width: 600}}>
                             <thead>
                             <tr>
-                                <td>Round</td>
-                                <td>Home</td>
-                                <td>Off</td>
-                                <td>Def</td>
-                                <td>Points</td>
-                                <td>Away</td>
-                                <td>Off</td>
-                                <td>Def</td>
-                                <td>Points</td>
+                                <td style={{width: 50}}>Round</td>
+                                <td style={{width: 200}}>Home</td>
+                                <td style={{width: 50}}>Goals</td>
+                                <td style={{width: 200}}>Away</td>
+                                <td style={{width: 50}}>Goals</td>
                             </tr>
                             </thead>
                             {this.state.list.map((roundList, matchupsIndex) => (
@@ -79,13 +85,9 @@ class LiveDashboard extends React.Component {
                                     <tr key={roundIndex}>
                                         <td>{matchup.round}</td>
                                         <td className="column">{matchup.team1.teamName}</td>
-                                        <td>{matchup.team1.offensiveRating}</td>
-                                        <td>{matchup.team1.defensiveRating}</td>
-                                        <td>{matchup.team1.points}</td>
+                                        <td>{matchup.team1Goals}</td>
                                         <td className="column">{matchup.team2.teamName}</td>
-                                        <td>{matchup.team2.offensiveRating}</td>
-                                        <td>{matchup.team2.defensiveRating}</td>
-                                        <td>{matchup.team2.points}</td>
+                                        <td>{matchup.team2Goals}</td>
                                     </tr>
                                 ))}
                                 </tbody>

@@ -1,7 +1,7 @@
 import React from "react";
 import {sendApiGetRequest, sendApiPostRequest} from "./ApiRequests";
 import {FaRegUser} from "react-icons/fa";
-import {MdEmail, MdPassword} from "react-icons/md";
+import {MdEmail, MdNumbers, MdPassword} from "react-icons/md";
 
 class EditProfilePage extends React.Component {
 
@@ -57,7 +57,7 @@ class EditProfilePage extends React.Component {
     render() {
         return (
             <div className={"DSignUp"}>
-                <label> Edit profile </label>
+                <label> Edit Profile </label>
                 <div>
                     {this.state.editMessage !== "The new details have been successfully saved" ?
                         <div>
@@ -93,6 +93,10 @@ class EditProfilePage extends React.Component {
                                        onChange={(event) => this.inputChange("repeatNewPassword", event)}
                                        placeholder="Repeat password"/>
                                 <MdPassword className="icon"/>
+                            </div>
+                            <div>
+                                <input type="number" readOnly value={this.stateFromLoginPage.balance}/>
+                                <MdNumbers className={"icon"}/>
                             </div>
                             {this.state.editMessage}
                             <button onClick={this.edit}>submit</button>

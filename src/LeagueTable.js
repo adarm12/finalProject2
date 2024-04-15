@@ -27,18 +27,13 @@ class LeagueTable extends React.Component {
     }
 
     checkPoints() {
-        const copyList = [...this.state.teamsList];
-        let counter = 0;
+        let copyList = new Set();
         let exist = false;
         for (let i = 0; i < this.state.teamsList.length; i++) {
-            for (let i = 0; i < copyList.length; i++) {
-                if (this.state.teamsList[i].points === copyList[i].points) {
-                    counter++
-                    if (counter > 1) {
-                        exist = true;
-                    }
-                }
-            }
+            if (!copyList.has(this.state.teamsList[i].points))
+                copyList.add(this.state.teamsList[i].points);
+            else
+                exist = true;
         }
         return exist;
     }

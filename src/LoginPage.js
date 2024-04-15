@@ -14,6 +14,7 @@ class LoginPage extends React.Component {
         username: "",
         email: "",
         password: "",
+        balance: "",
         errorCode: null,
         editProfile: false,
         connectionMessage: "",
@@ -36,6 +37,7 @@ class LoginPage extends React.Component {
                 console.log("Successfully connected");
                 this.setState({connectionMessage: "Successfully connected"});
                 this.setState({username: response.data.user.username});
+                this.setState({balance: response.data.user.balance});
                 const cookies = new Cookies(null, {path: '/'});
                 cookies.set('id', response.data.id);
                 cookies.set('secret', response.data.secret);
@@ -134,7 +136,7 @@ class LoginPage extends React.Component {
                                         <div></div>
                                     }
                                     {this.state.live ?
-                                        <LiveDashboard></LiveDashboard>
+                                        <LiveDashboard stateFromLogin={this.state}></LiveDashboard>
                                         :
                                         <div></div>
                                     }

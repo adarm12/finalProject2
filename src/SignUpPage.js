@@ -1,6 +1,6 @@
 import React from "react";
-import { MdEmail, MdPassword } from "react-icons/md";
-import { FaRegUser } from "react-icons/fa";
+import {MdEmail, MdNumbers, MdPassword} from "react-icons/md";
+import {FaRegUser} from "react-icons/fa";
 import {sendApiPostRequest} from "./ApiRequests";
 
 class SignUpPage extends React.Component {
@@ -9,6 +9,7 @@ class SignUpPage extends React.Component {
         email: "",
         password: "",
         repeatPassword: "",
+        balance: 0,
         text: ""
     }
 
@@ -22,10 +23,11 @@ class SignUpPage extends React.Component {
             email: this.state.email,
             password: this.state.password,
             repeatPassword: this.state.repeatPassword,
+            balance: this.state.balance,
         }, (response) => {
             if (response.data.success) {
-                console.log("נרשמת בהצלחה");
-                this.setState({text: "נרשמת בהצלחה"});
+                console.log("You have successfully signed up");
+                this.setState({text: "You have successfully signed up"});
             } else {
                 console.log("***********Error");
                 if (response.data.errorCode === 3)
@@ -42,6 +44,8 @@ class SignUpPage extends React.Component {
                     this.setState({text: "Password length should be at least 8 characters"});
                 if (response.data.errorCode === 14)
                     this.setState({text: "The password must contain @ or !"});
+                if (response.data.errorCode === 15)
+                    this.setState({text: "The balance should be bigger then 50"});
                 // setTimeout(() => {
                 //     this.setState({text: ""}); // לאפס את ההודעה לאחר 5 שניות
                 // }, 5000);
@@ -113,6 +117,14 @@ class SignUpPage extends React.Component {
                            placeholder="Repeat password"
                     />
                     <MdPassword className="icon"/>
+                </div>
+                <div>
+                    <input type={"number"}
+                           value={this.state.balance}
+                           onChange={(event) => this.inputChange("balance", event)}
+                           placeholder="Enter balance"
+                    />
+                    <MdNumbers className={"icon"}/>
                 </div>
                 <button onClick={this.signUp}>Sign Up</button>
                 {this.state.text}

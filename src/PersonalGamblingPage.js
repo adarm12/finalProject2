@@ -1,10 +1,46 @@
 import React from "react";
 
 class PersonalGamblingPage extends React.Component {
+
+    state = {
+        choose: "",
+    }
+
+    stateFromLivePage = this.props.stateFromLive;
+
     render() {
         return (
-            <div>
-                <button>Personal Gambling Page</button>
+            <div style={{
+                fontSize: 25,
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                display: "flex"
+            }}>
+                <label>Personal Gambling Page</label>
+                <div> Your balance: {this.stateFromLivePage.balance}</div>
+                <div>
+                    {this.stateFromLivePage.team1} VS {this.stateFromLivePage.team2}
+                </div>
+                <div>
+                    Choose:
+                    <button onClick={() => this.setState({
+                        choose: this.stateFromLivePage.team1,
+                    })}>
+                        {this.stateFromLivePage.team1} wins
+                    </button>
+                    <button onClick={() => this.setState({
+                        choose: this.stateFromLivePage.team2,
+                    })}>
+                        {this.stateFromLivePage.team2} wins
+                    </button>
+                    <button onClick={() => this.setState({
+                        choose: "draw",
+                    })}>
+                        draw
+                    </button>
+                </div>
+
             </div>
         )
     }

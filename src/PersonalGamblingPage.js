@@ -3,10 +3,24 @@ import React from "react";
 class PersonalGamblingPage extends React.Component {
 
     state = {
+        // result: "",
         choose: "",
     }
 
     stateFromLivePage = this.props.stateFromLive;
+
+    componentDidMount() {
+    }
+
+
+
+
+    setBalance = () => {
+        if (this.state.result === this.stateFromLivePage.team1Goals) {
+            this.setState({result: this.stateFromLivePage.team1})
+        }
+    }
+
 
     render() {
         return (
@@ -40,7 +54,14 @@ class PersonalGamblingPage extends React.Component {
                         draw
                     </button>
                 </div>
-
+                <div>
+                    choose: {this.state.choose}
+                </div>
+                <div>
+                    result: {this.stateFromLivePage.result}
+                </div>
+                {this.stateFromLivePage.team1} {this.stateFromLivePage.team2}
+                {this.stateFromLivePage.team1Goals} {this.stateFromLivePage.team2Goals}
             </div>
         )
     }

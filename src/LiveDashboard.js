@@ -9,15 +9,21 @@ class LiveDashboard extends React.Component {
         team1: "",
         team2: "",
         gambling: false,
+        team1Goals: "",
+        team2Goals: "",
+        team1WinRatio: "",
+        team2WinRatio: "",
+        drawRatio: "",
+        result: "",
     }
 
     stateFromLoginPage = this.props.stateFromLogin;
 
     componentDidMount() {
-        this.login()
+        this.live()
     }
 
-    login = () => {
+    live = () => {
         console.log("-----------------");
 
         const event = new EventSource("http://localhost:9123/streaming");
@@ -33,6 +39,23 @@ class LiveDashboard extends React.Component {
             })
         };
     }
+
+
+    // check = () => {
+    //     for (let i = 0; i < this.state.list.length; i++) {
+    //         for (let j = 0; j < this.state.list[i].length; j++) {
+    //             if (this.state.team1.equals(this.state.list[i].team1.teamName) && this.state.team2.equals(this.state.list[i].team2.teamName)) {
+    //                 if (this.state.list[i].team1Goals > this.state.list[i].team2Goals) {
+    //                     this.setState({result: this.state.list[i].team1.teamName})
+    //                 } else if (this.state.list[i].team1Goals < this.state.list[i].team2Goals) {
+    //                     this.setState({result: this.state.list[i].team2.teamName})
+    //                 } else if (this.state.list[i].team1Goals === this.state.list[i].team1Goals) {
+    //                     this.setState({result: "draw"})
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     render() {
         return (
@@ -69,7 +92,12 @@ class LiveDashboard extends React.Component {
                                                     gambling: true,
                                                     balance: this.stateFromLoginPage.balance,
                                                     team1: currentList.team1.teamName,
-                                                    team2: currentList.team2.teamName
+                                                    team2: currentList.team2.teamName,
+                                                    team1Goals: currentList.team1Goals,
+                                                    team2Goals: currentList.team2Goals,
+                                                    team1WinRatio: currentList.team1WinRatio,
+                                                    team2WinRatio: currentList.team2WinRatio,
+                                                    drawRatio: currentList.drawRatio,
                                                 })} style={{width: 50, height: 25}}> Bet </button>
                                                 :
                                                 <div>

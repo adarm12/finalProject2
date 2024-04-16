@@ -14,6 +14,7 @@ class LiveDashboard extends React.Component {
         team1WinRatio: "",
         team2WinRatio: "",
         drawRatio: "",
+
         result: "",
     }
 
@@ -33,11 +34,20 @@ class LiveDashboard extends React.Component {
         let context = this;
         event.onmessage = function (message) {
             const update = JSON.parse(message.data);
+
             context.setState({
                 list: update.list,
                 current: update.current,
             })
         };
+    }
+
+     checkWinners = (list) => {
+        for (let i=list.length-1; i<list.length-5; i++) {
+            if (list.get(i).team1Goals>list.get(i).team2Goals) {
+
+            }
+        }
     }
 
 

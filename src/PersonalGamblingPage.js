@@ -54,6 +54,7 @@ class PersonalGamblingPage extends React.Component {
                         draw
                     </button>
                 </div>
+
                 <div>
                     choose: {this.state.choose}
                 </div>

@@ -91,12 +91,7 @@ class LiveDashboard extends React.Component {
                                                     gambling: true,
                                                     balance: this.stateFromLoginPage.balance,
                                                     team1: currentList.team1.teamName,
-                                                    team2: currentList.team2.teamName,
-                                                    team1Goals: currentList.team1Goals,
-                                                    team2Goals: currentList.team2Goals,
-                                                    team1WinRatio: currentList.team1WinRatio,
-                                                    team2WinRatio: currentList.team2WinRatio,
-                                                    drawRatio: currentList.drawRatio,
+                                                    team2: currentList.team2.teamName
                                                 })} style={{width: 50, height: 25}}> Bet </button>
                                                 :
                                                 <div>

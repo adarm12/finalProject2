@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Routes, NavLink, Link} from "react-router-dom";
 import LoginPage from "./LoginPage";
 import SignUpPage from "./SignUpPage";
 import GuestPage from "./GuestPage";
+import SuccessConnection from "./SuccessConnection";
 
 
 class App extends React.Component {
@@ -19,7 +20,7 @@ class App extends React.Component {
         return (
             <div className="App">
                 <BrowserRouter>
-                    {this.state.showButtons ?
+                    {this.state.showButtons &&
                         <div className="DSignUp">
                             <label> {this.state.title} </label>
                             <div className={"nav-button"}>
@@ -41,9 +42,6 @@ class App extends React.Component {
                                         guest</NavLink>
                                 </button>
                             </div>
-                        </div>
-                        :
-                        <div>
                         </div>
                     }
                     <Routes>

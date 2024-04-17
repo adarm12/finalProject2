@@ -6,57 +6,67 @@ import LiveDashboard from "./LiveDashboard";
 import EditProfilePage from "./EditProfilePage";
 import {MdEmail, MdPassword} from "react-icons/md";
 import LeagueTable from "./LeagueTable";
+import SuccessConnection from "./SuccessConnection";
 
 
 class LoginPage extends React.Component {
     state = {
-        title: "Login",
         username: "",
         email: "",
         password: "",
-        balance: "",
         errorCode: null,
-        editProfile: false,
-        connectionMessage: "",
-        live: false,
-        leagueTable: false,
-        showButtons: true,
+        connectionSuccess: false,
+        balance: "",
     }
 
     componentDidMount() {
-
     }
 
     login = () => {
         sendApiPostRequest("http://localhost:9123/login", {
-            // username: this.state.username,
             email: this.state.email,
             password: this.state.password,
         }, (response) => {
             if (response.data.success) {
                 console.log("Successfully connected");
-                this.setState({connectionMessage: "Successfully connected"});
-                this.setState({username: response.data.user.username});
-                this.setState({balance: response.data.user.balance});
+                this.setState({
+                    connectionSuccess: true,
+                    username: response.data.user.username,
+                    balance: response.data.user.balance
+                });
                 const cookies = new Cookies(null, {path: '/'});
                 cookies.set('id', response.data.id);
                 cookies.set('secret', response.data.secret);
-            } else {
-                if (response.data.errorCode === 11)
-                    this.setState({connectionMessage: "Invalid password"});
-                if (response.data.errorCode === 4)
-                    this.setState({connectionMessage: "No password entered"});
-                if (response.data.errorCode === 2)
-                    this.setState({connectionMessage: "User name does not exist"});
-                if (response.data.errorCode === 3)
-                    this.setState({connectionMessage: "No username entered"});
-                if (response.data.errorCode === 13)
-                    this.setState({connectionMessage: "Email does not exist"});
-                if (response.data.errorCode === 7)
-                    this.setState({connectionMessage: "No email entered"});
-            }
+            } else
+                this.setState({errorCode: response.data.errorCode})
         })
     }
+
+    showErrorCode = () => {
+        let errorMessage = "";
+        switch (this.state.errorCode) {
+            case 11:
+                errorMessage = "Invalid password";
+                break;
+            case 4:
+                errorMessage = "No password entered";
+                break;
+            case 2:
+                errorMessage = "User name does not exist";
+                break;
+            case 3:
+                errorMessage = "No username entered";
+                break;
+            case 13:
+                errorMessage = "Email does not exist";
+                break;
+            case 7:
+                errorMessage = "No email entered";
+                break;
+        }
+        return errorMessage;
+    }
+
 
     inputChange = (key, event) => {
         this.setState({
@@ -68,9 +78,9 @@ class LoginPage extends React.Component {
         return (
             <div>
                 <div>
-                    {this.state.connectionMessage !== "Successfully connected" ?
+                    {!this.state.connectionSuccess ?
                         <div className={"DSignUp"}>
-                            <label> {this.state.title} </label>
+                            <label> Login </label>
                             <div>
                                 <input type={"text"}
                                        value={this.state.email}
@@ -86,72 +96,11 @@ class LoginPage extends React.Component {
                                 <MdPassword className="icon"/>
                             </div>
                             <button onClick={this.login}>Login</button>
-                            {this.state.connectionMessage}
+                            <div>{this.showErrorCode()}</div>
                         </div>
                         :
                         <div>
-                            {this.state.showButtons ?
-                                <div className={"DSignUp"}>
-                                    <div>
-                                        <button onClick={() => this.setState({
-                                            editProfile: true,
-                                            showButtons: false,
-                                            title: ""
-                                        })}>Edit
-                                            Profile
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button onClick={() => this.setState({
-                                            live: true,
-                                            showButtons: false,
-                                            title: ""
-                                        })}>Live
-                                            Dashboard
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button onClick={() => this.setState({
-                                            leagueTable: true,
-                                            showButtons: false,
-                                            title: ""
-                                        })}>League Table
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button onClick={() => this.setState({
-                                            personalGambling: true,
-                                            showButtons: false,
-                                            title: ""
-                                        })}>Personal
-                                            Gambling
-                                        </button>
-                                    </div>
-                                </div>
-                                :
-                                <div>
-                                    {this.state.editProfile ?
-                                        <EditProfilePage stateFromLogin={this.state}/>
-                                        :
-                                        <div></div>
-                                    }
-                                    {this.state.live ?
-                                        <LiveDashboard stateFromLogin={this.state}></LiveDashboard>
-                                        :
-                                        <div></div>
-                                    }
-                                    {this.state.leagueTable ?
-                                        <LeagueTable></LeagueTable>
-                                        :
-                                        <div></div>
-                                    }
-                                    {this.state.personalGambling ?
-                                        <PersonalGamblingPage></PersonalGamblingPage>
-                                        :
-                                        <div></div>
-                                    }
-                                </div>
-                            }
+                            <SuccessConnection stateFromLogin={this.state}/>
                         </div>
                     }
                 </div>

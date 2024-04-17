@@ -11,7 +11,7 @@ class EditProfilePage extends React.Component {
         repeatNewPassword: "",
         errorCode: null,
         editProfile: false,
-        editMessage: "",
+        editMessage: "", //??
     }
 
     stateFromLoginPage = this.props.stateFromLogin;
@@ -30,22 +30,36 @@ class EditProfilePage extends React.Component {
         }, (response) => {
             if (response.data.success) {
                 console.log("The new details have been successfully saved");
-                this.setState({editMessage: "The new details have been successfully saved"});
+                // this.setState({editMessage: "The new details have been successfully saved"});
+                this.setState({editProfile: true})
             } else {
-                if (response.data.errorCode === 1)
-                    this.setState({editMessage: "User name taken"});
-                if (this.state.newPassword === 4)
-                    this.setState({editMessage: "No password entered"});
-                if (this.state.newUsername === 3)
-                    this.setState({editMessage: "No username entered"});
-                if (response.data.errorCode === 10)
-                    this.setState({editMessage: "Password length should be at least 8 characters"});
-                if (response.data.errorCode === 14)
-                    this.setState({editMessage: "The password must contain @ or !"});
-                if (response.data.errorCode === 12)
-                    this.setState({editMessage: "Password is not the same"});
             }
         })
+    }
+
+    showErrorCode = () => {
+        let errorMessage = "";
+        switch (this.state.errorCode) {
+            case 1:
+                errorMessage = "User name taken";
+                break;
+            case 4:
+                errorMessage = "No password entered";
+                break;
+            case 3:
+                errorMessage = "No username entered";
+                break;
+            case 14:
+                errorMessage = "The password must contain @ or !";
+                break;
+            case 10:
+                errorMessage = "Password length should be at least 8 characters";
+                break;
+            case 12:
+                errorMessage = "Password is not the same";
+                break;
+        }
+        return errorMessage;
     }
 
     inputChange = (key, event) => {
@@ -59,14 +73,16 @@ class EditProfilePage extends React.Component {
             <div className={"DSignUp"}>
                 <label> Edit Profile </label>
                 <div>
-                    {this.state.editMessage !== "The new details have been successfully saved" ?
+                    {!this.state.editProfile ?
                         <div>
                             <div>
-                                <input type="text" readOnly value={this.stateFromLoginPage.email}/>
+                                <input type="text" readOnly value={this.stateFromLoginPage.email}
+                                       style={{backgroundColor: 'rgba(255,253,231,0.8)'}}/>
                                 <MdEmail className="icon"/>
                             </div>
                             <div>
-                                <input type="text" readOnly value={this.stateFromLoginPage.username}/>
+                                <input type="text" readOnly value={this.stateFromLoginPage.username}
+                                       style={{backgroundColor: 'rgba(255,253,231,0.8)'}}/>
                                 <FaRegUser className="icon"/>
                             </div>
                             <div>
@@ -77,7 +93,9 @@ class EditProfilePage extends React.Component {
                                 <FaRegUser className="icon"/>
                             </div>
                             <div>
-                                <input type="text" readOnly value={this.stateFromLoginPage.password}/>
+                                <input type="text" readOnly value={this.stateFromLoginPage.password}
+                                       // style={{backgroundColor: 'rgba(255,253,231,0.8)'}}
+                                />
                                 <MdPassword className="icon"/>
                             </div>
                             <div>
@@ -95,7 +113,9 @@ class EditProfilePage extends React.Component {
                                 <MdPassword className="icon"/>
                             </div>
                             <div>
-                                <input type="number" readOnly value={this.stateFromLoginPage.balance}/>
+                                <input type="number" readOnly value={this.stateFromLoginPage.balance}
+                                       style={{backgroundColor: 'rgba(255,253,231,0.62)'}}/>
+
                                 <MdNumbers className={"icon"}/>
                             </div>
                             {this.state.editMessage}

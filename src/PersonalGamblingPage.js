@@ -3,8 +3,13 @@ import React from "react";
 class PersonalGamblingPage extends React.Component {
 
     state = {
-        choose: "",
+        roundTeams : [],
+        chooses: [],
     }
+
+    TEAM1 = 1
+    TEAM2 = 2
+    DROW = 3
 
     stateFromLivePage = this.props.stateFromLive;
 

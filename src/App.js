@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Routes, NavLink, Link} from "react-router-dom";
 import LoginPage from "./LoginPage";
 import SignUpPage from "./SignUpPage";
 import GuestPage from "./GuestPage";
-import SuccessConnection from "./SuccessConnection";
+
 
 
 class App extends React.Component {

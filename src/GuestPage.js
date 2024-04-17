@@ -4,7 +4,6 @@ import LeagueTable from "./LeagueTable";
 
 class GuestPage extends React.Component {
     state = {
-        showButtons: true,
         live: false,
         leagueTable: false,
     }
@@ -34,13 +33,17 @@ class GuestPage extends React.Component {
                     :
                     <div>
                         <div>
-                            {this.state.live &&
+                            {this.state.live ?
                                 <LiveDashboard></LiveDashboard>
+                                :
+                                <div></div>
                             }
                         </div>
                         <div>
-                            {this.state.leagueTable &&
+                            {this.state.leagueTable ?
                                 <LeagueTable></LeagueTable>
+                                :
+                                <div></div>
                             }
                         </div>
                     </div>

@@ -74,13 +74,6 @@ class PersonalGamblingPage extends React.Component {
 
     }
 
-    sendDataToParent = () => {
-        const {newBet} = this.state;
-        this.props.onDataReceived(newBet);
-    };
-
-
-
 
 render()
 {
@@ -123,7 +116,6 @@ render()
                 <button onClick={this.bet}>
                     Bet
                 </button>
-                <button onClick={this.sendDataToParent}>Send Data</button>
             </div>
             <div>
                 bet: {this.state.bet}

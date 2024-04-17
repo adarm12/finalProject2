@@ -11,7 +11,7 @@ class SuccessConnection extends React.Component {
         editProfile: false,
         live: false,
         leagueTable: false,
-        showButtons: true,
+        showButtons: true
     };
 
     stateFromLogin = this.props.stateFromLogin;
@@ -62,7 +62,7 @@ class SuccessConnection extends React.Component {
                     ) : (
                         <div>
                             <div>{this.state.leagueTable && <LeagueTable></LeagueTable>}</div>
-                            <div> {this.state.editProfile && <EditProfilePage stateFromLogin={this.state}/>} </div>
+                            <div> {this.state.editProfile && <EditProfilePage stateFromLogin={this.stateFromLogin}/>} </div>
                             <div>{this.state.live &&
                                 <LiveDashboard stateFromLogin={this.stateFromLogin}></LiveDashboard>}</div>
                             <div>{this.state.personalGambling && <PersonalGamblingPage></PersonalGamblingPage>}</div>

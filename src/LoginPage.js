@@ -17,10 +17,6 @@ class LoginPage extends React.Component {
         errorCode: null,
         connectionSuccess: false,
         balance: "",
-        editProfile: false, //
-        live: false, //
-        leagueTable: false, //
-        showButtons: true, //
     }
 
     componentDidMount() {
@@ -104,61 +100,7 @@ class LoginPage extends React.Component {
                         </div>
                         :
                         <div>
-                            {/*<SuccessConnection stateFromLogin={this.state}/>*/}
-                            {this.state.showButtons ?
-                                <div className={"DSignUp"}>
-                                    <div>
-                                        <button onClick={() => this.setState({
-                                            editProfile: true,
-                                            showButtons: false,
-                                            title: ""
-                                        })}>Edit
-                                            Profile
-                                        </button>
-                                    </div>
-                                <div>
-                                <button onClick={() => this.setState({
-                                live: true,
-                                showButtons: false,
-                                title: ""
-                            })}>Live
-                                Dashboard
-                                </button>
-                                </div>
-                                <div>
-                                <button onClick={() => this.setState({
-                                leagueTable: true,
-                                showButtons: false,
-                                title: ""
-                            })}>League Table
-                                </button>
-                                </div>
-                                <div>
-                                <button onClick={() => this.setState({
-                                personalGambling: true,
-                                showButtons: false,
-                                title: ""
-                            })}>Personal
-                                Gambling
-                                </button>
-                                </div>
-                                </div>
-                                :
-                                <div>
-                            {this.state.editProfile &&
-                                <EditProfilePage stateFromLogin={this.state}/>
-                            }
-                            {this.state.live &&
-                                <LiveDashboard stateFromLogin={this.state}></LiveDashboard>
-                            }
-                            {this.state.leagueTable &&
-                                <LeagueTable></LeagueTable>
-                            }
-                            {this.state.personalGambling &&
-                                <PersonalGamblingPage></PersonalGamblingPage>
-                            }
-                                </div>
-                            }
+                            <SuccessConnection stateFromLogin={this.state}/>
                         </div>
                     }
                 </div>

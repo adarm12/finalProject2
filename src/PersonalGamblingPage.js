@@ -81,6 +81,7 @@ class PersonalGamblingPage extends React.Component {
 
 
 
+
 render()
 {
     return (

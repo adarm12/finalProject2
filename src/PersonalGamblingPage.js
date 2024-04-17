@@ -53,9 +53,20 @@ class PersonalGamblingPage extends React.Component {
     }
 
     bet = () => {
-        this.updateBet("pick", this.state.choose)
-        this.updateBet("money", this.state.bet)
-        this.updateBet("ratio", this.stateFromLivePage.drawRatio)
+        this.props.changeScreen();
+
+        this.updateBet("pick", this.state.choose);
+        this.updateBet("money", this.state.bet);
+        if (this.state.choose === "draw") {
+            this.updateBet("ratio", this.stateFromLivePage.drawRatio);
+        } else if (this.state.choose === this.stateFromLivePage.team1) {
+            this.updateBet("ratio", this.stateFromLivePage.team1WinRatio);
+        } else if (this.state.choose === this.stateFromLivePage.team2) {
+            this.updateBet("ratio", this.stateFromLivePage.team2WinRatio);
+        }
+
+
+
         if (this.state.bet > this.state.balance)
             this.setState({error: "The bet must be lower than the balance"})
         if (this.state.bet < 0)
@@ -127,7 +138,9 @@ render()
                 result: {this.state.result}
             </div>
             <div>
-                newBet: {this.state.newBet.pick}
+                newBet pick: {this.state.newBet.pick}
+                newBet money: {this.state.newBet.money}
+                newBet ratio: {this.state.newBet.ratio}
             </div>
             {this.stateFromLivePage.team1} {this.stateFromLivePage.team2}
             {this.stateFromLivePage.team1Goals} {this.stateFromLivePage.team2Goals}

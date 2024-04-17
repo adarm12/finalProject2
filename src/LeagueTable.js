@@ -47,34 +47,57 @@ class LeagueTable extends React.Component {
         this.setState({teamsList: listToSort});
     }
 
+    highestLeagueStyle = (index) => {
+        if (index === 0)
+            return '#CCFFCC';
+    }
+
 
     render() {
         return (
             <div>
-                <label>League Table</label>
+                <div>
+                    <label className={"Main-title"}>League Table</label>
+                </div>
                 <table style={{width: 800}}>
-                    <thead>
+                    <thead className={"title"}>
                     <tr>
-                        <td>team name</td>
-                        <td>points</td>
-                        <td>goals difference</td>
-                        <td>offensive rating</td>
-                        <td>defensive rating</td>
-                        <td>player injuries</td>
+                        <td>Team Name</td>
+                        <td>Points</td>
+                        <td>Goals Difference</td>
+                        <td>Offensive Rating</td>
+                        <td>Defensive Rating</td>
+                        <td>Player Injuries</td>
                     </tr>
+
                     </thead>
                     {this.state.teamsList.map((teams, teamsIndex) => (
                         <tbody>
-                        {this.sortTable()}
                         <tr key={teamsIndex}/>
-                        <td style={{width: 200}}>{teams.teamName}</td>
-                        <td>{teams.points}</td>
-                        <td style={{width: 150}}>{teams.goalsDifference}</td>
-                        <td style={{width: 150}}>{teams.offensiveRating}</td>
-                        <td style={{width: 150}}>{teams.defensiveRating}</td>
-                        <td style={{width: 150}}>{teams.playerInjuries}</td>
+                        <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.teamName} </td>
+                        <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.points}</td>
+                        <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.goalsDifference}</td>
+                        <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.offensiveRating}</td>
+                        <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.defensiveRating}</td>
+                        <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.playerInjuries}</td>
+                        {this.sortTable()}
                         </tbody>
                     ))}
+
+
+                    {/*</thead>*/}
+                    {/*{this.state.teamsList.map((teams, teamsIndex) => (*/}
+                    {/*    <tbody className={"LeagueTable-css"}>*/}
+                    {/*    <tr key={teamsIndex}/>*/}
+                    {/*    <td style={{width: 200}}>{teams.teamName}</td>*/}
+                    {/*    <td>{teams.points}</td>*/}
+                    {/*    <td style={{width: 150}}>{teams.goalsDifference}</td>*/}
+                    {/*    <td style={{width: 150}}>{teams.offensiveRating}</td>*/}
+                    {/*    <td style={{width: 150}}>{teams.defensiveRating}</td>*/}
+                    {/*    <td style={{width: 150}}>{teams.playerInjuries}</td>*/}
+                    {/*    {this.sortTable()}*/}
+                    {/*    </tbody>*/}
+                    {/*))}*/}
                 </table>
             </div>
         );

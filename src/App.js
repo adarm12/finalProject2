@@ -6,10 +6,8 @@ import SignUpPage from "./SignUpPage";
 import GuestPage from "./GuestPage";
 
 
-
 class App extends React.Component {
     state = {
-        title: "Menu",
         showButtons: true,
         login: false,
         add: false,
@@ -22,7 +20,7 @@ class App extends React.Component {
                 <BrowserRouter>
                     {this.state.showButtons &&
                         <div className="DSignUp">
-                            <label> {this.state.title} </label>
+                            <label className={"Main-title"}> Menu </label>
                             <div className={"nav-button"}>
                                 <button className={"btn"}
                                         onClick={() => this.setState({login: true, showButtons: false, title: false})}>

@@ -162,27 +162,3 @@ class LoginPage extends React.Component {
 }
 
 export default LoginPage;
-
-// errorMessage = (errorCode, messageToEdit) => {
-
-//     switch (errorCode) {
-//         case 11:
-//             this.setState({ [messageToEdit]: "סיסמה לא נכונה" });
-//             break;
-//         case 3:
-//             this.setState({ [messageToEdit]: "אין שם משתמש" });
-//             break;
-//         case 4:
-//             this.setState({ [messageToEdit]: "אין סיסמה" });
-//             break;
-//         case 12:
-//             this.setState({ [messageToEdit]: "מייל לא קיים" });
-//             break;
-//         case 2:
-//             this.setState({ [messageToEdit]: "שם משתמש לא קיים" });
-//             break;
-//         case 7:
-//             this.setState({ [messageToEdit]: "אין מייל" });
-//             break;
-//     }
-// }

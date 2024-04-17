@@ -14,7 +14,7 @@ class LiveDashboard extends React.Component {
         team1WinRatio: "",
         team2WinRatio: "",
         drawRatio: "",
-
+        scoresSet: [],
         result: "",
     }
 
@@ -34,7 +34,9 @@ class LiveDashboard extends React.Component {
         let context = this;
         event.onmessage = function (message) {
             const update = JSON.parse(message.data);
-
+            // if (update.list.length > this.state.list.length) {
+            //     this.finalScore(update.list);
+            // }
             context.setState({
                 list: update.list,
                 current: update.current,
@@ -42,41 +44,28 @@ class LiveDashboard extends React.Component {
         };
     }
 
-     checkWinners = (list) => {
-        for (let i=list.length-1; i<list.length-5; i++) {
-            if (list.get(i).team1Goals>list.get(i).team2Goals) {
-
-            }
+    finalScore = (list) => {
+        let scores = [];
+        for (let i = list.length - 1; i < list.length - 5; i++) {
+            scores.add(list.get(i));
         }
+        this.setState({scoresSet: scores});
     }
 
-
-    // check = () => {
-    //     for (let i = 0; i < this.state.list.length; i++) {
-    //         for (let j = 0; j < this.state.list[i].length; j++) {
-    //             if (this.state.team1.equals(this.state.list[i].team1.teamName) && this.state.team2.equals(this.state.list[i].team2.teamName)) {
-    //                 if (this.state.list[i].team1Goals > this.state.list[i].team2Goals) {
-    //                     this.setState({result: this.state.list[i].team1.teamName})
-    //                 } else if (this.state.list[i].team1Goals < this.state.list[i].team2Goals) {
-    //                     this.setState({result: this.state.list[i].team2.teamName})
-    //                 } else if (this.state.list[i].team1Goals === this.state.list[i].team1Goals) {
-    //                     this.setState({result: "draw"})
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 
     render() {
         return (
             <div>
-                {this.state.gambling === false ?
+                {!this.state.gambling ?
                     <div>
                         <label> Live Dashboard </label>
                         <div></div>
                         {this.state.list.length !== 7 ?
                             <div>
                                 <label> Current Round </label>
+                                <div>
+                                    {/*scoresSet: {this.state.scoresSet.length}*/}
+                                </div>
                                 <table style={{width: 600}}>
                                     <thead>
                                     <tr>

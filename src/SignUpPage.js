@@ -59,29 +59,6 @@ class SignUpPage extends React.Component {
         })
     }
 
-    // isValidEmail = (email) => {
-    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //     return emailRegex.test(email);
-    // }
-    //
-    // samePassword = () => {
-    //     return (this.state.password.equals(this.state.repeatPassword));
-    // }
-    //
-    // errorMessage = (data) => {
-    //     if (data.errorCode === 3)
-    //         this.setState({message: "אין שם משתמש"});
-    //     if (data.errorCode === 7)
-    //         this.setState({message: "אין מייל"});
-    //     if (data.errorCode === 6)
-    //         this.setState({message: "מייל לא תקין"});
-    //     if (data.errorCode === 4)
-    //         this.setState({message: "אין סיסמה"});
-    //     setTimeout(() => {
-    //         this.setState({text: ""}); // לאפס את ההודעה לאחר 5 שניות
-    //     }, 5000);
-    // }
-
     render() {
         return (
             <div className={"DSignUp"}>

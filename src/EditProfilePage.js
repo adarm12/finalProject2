@@ -11,8 +11,7 @@ class EditProfilePage extends React.Component {
         newPassword: "",
         repeatNewPassword: "",
         errorCode: null,
-        editProfile: false,
-        editMessage: "",
+        successMessage: "",
     }
 
     stateFromLoginPage = this.props.stateFromLogin;
@@ -23,30 +22,48 @@ class EditProfilePage extends React.Component {
 
     edit = () => {
         sendApiPostRequest("http://localhost:9123/edit-user", {
-            email: this.stateFromLoginPage.email,
-            newUsername: this.state.newUsername,
-            password: this.stateFromLoginPage.password,
-            newPassword: this.state.newPassword,
-            repeatNewPassword: this.state.repeatNewPassword,
-        }, (response) => {
-            if (response.data.success) {
-                console.log("The new details have been successfully saved");
-                this.setState({editMessage: "The new details have been successfully saved"});
-            } else {
-                if (response.data.errorCode === 1)
-                    this.setState({editMessage: "User name taken"});
-                if (this.state.newPassword === 4)
-                    this.setState({editMessage: "No password entered"});
-                if (this.state.newUsername === 3)
-                    this.setState({editMessage: "No username entered"});
-                if (response.data.errorCode === 10)
-                    this.setState({editMessage: "Password length should be at least 8 characters"});
-                if (response.data.errorCode === 14)
-                    this.setState({editMessage: "The password must contain @ or !"});
-                if (response.data.errorCode === 12)
-                    this.setState({editMessage: "Password is not the same"});
-            }
-        })
+                email: this.stateFromLoginPage.email,
+                newUsername: this.state.newUsername,
+                password: this.stateFromLoginPage.password,
+                newPassword: this.state.newPassword,
+                repeatNewPassword: this.state.repeatNewPassword,
+            },
+            (response) => {
+                console.log()
+                if (response.data.success) {
+                    console.log("The new details have been successfully saved");
+                    this.setState({successMessage: "The new details have been successfully saved"})
+                } else
+                    this.setState({errorCode: response.data.errorCode})
+            })
+    }
+
+    showErrorCode = () => {
+        let errorMessage = "";
+        switch (this.state.errorCode) {
+            case 1:
+                errorMessage = "User name taken";
+                break;
+            case 4:
+                errorMessage = "No password entered";
+                break;
+            case 3:
+                errorMessage = "No username entered";
+                break;
+            case 14:
+                errorMessage = "The password must contain @ or !";
+                break;
+            case 10:
+                errorMessage = "Password length should be at least 8 characters";
+                break;
+            case 12:
+                errorMessage = "Password is not the same";
+                break;
+            case 0:
+                errorMessage = "The new details have been successfully saved";
+                break;
+        }
+        return errorMessage;
     }
 
     inputChange = (key, event) => {
@@ -58,55 +75,56 @@ class EditProfilePage extends React.Component {
     render() {
         return (
             <div className={"DSignUp"}>
-                <label> Edit profile </label>
+                <label> Edit Profile </label>
                 <div>
-                    {this.state.editMessage !== "The new details have been successfully saved" ?
-                        <div>
-                            <div>
-                                <input type="text" readOnly value={this.stateFromLoginPage.email}/>
-                                <MdEmail className="icon"/>
-                            </div>
-                            <div>
-                                <input type="text" readOnly value={this.stateFromLoginPage.username}/>
-                                <FaRegUser className="icon"/>
-                            </div>
-                            <div>
-                                <input type={"text"}
-                                       value={this.state.newUsername}
-                                       onChange={(event) => this.inputChange("newUsername", event)}
-                                       placeholder="Enter new username"/>
-                                <FaRegUser className="icon"/>
-                            </div>
-                            <div>
-                                <input type="text" readOnly value={this.stateFromLoginPage.password}/>
-                                <MdPassword className="icon"/>
-                            </div>
-                            <div>
-                                <input type={"password"}
-                                       value={this.state.newPassword}
-                                       onChange={(event) => this.inputChange("newPassword", event)}
-                                       placeholder="Enter new Password"/>
-                                <MdPassword className="icon"/>
-                            </div>
-                            <div>
-                                <input type={"password"}
-                                       value={this.state.repeatNewPassword}
-                                       onChange={(event) => this.inputChange("repeatNewPassword", event)}
-                                       placeholder="Repeat password"/>
-                                <MdPassword className="icon"/>
-                            </div>
-                            <div>
-                                <input type="number" readOnly value={this.stateFromLoginPage.balance}/>
-                                <MdNumbers className={"icon"}/>
-                            </div>
-                            {this.state.editMessage}
-                            <button onClick={this.edit}>submit</button>
-                        </div>
-                        :
-                        <div>
-                            {this.state.editMessage}
-                        </div>
-                    }
+                    <div>
+                        <input type="text"
+                               readOnly value={this.stateFromLoginPage.email}
+                               style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
+                        <MdEmail className="icon"/>
+                    </div>
+                    <div>
+                        <input type="text" readOnly value={this.stateFromLoginPage.username}
+                               style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
+                        <FaRegUser className="icon"/>
+                    </div>
+                    <div>
+                        <input type={"text"}
+                               value={this.state.newUsername}
+                               onChange={(event) => this.inputChange("newUsername", event)}
+                               placeholder="Enter new username"/>
+                        <FaRegUser className="icon"/>
+                    </div>
+                    <div>
+                        <input type="text" readOnly value={this.stateFromLoginPage.password}
+                               style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
+                        <MdPassword className="icon"/>
+                    </div>
+                    <div>
+                        <input type={"password"}
+                               value={this.state.newPassword}
+                               onChange={(event) => this.inputChange("newPassword", event)}
+                               placeholder="Enter new Password"/>
+                        <MdPassword className="icon"/>
+                    </div>
+                    <div>
+                        <input type={"password"}
+                               value={this.state.repeatNewPassword}
+                               onChange={(event) => this.inputChange("repeatNewPassword", event)}
+                               placeholder="Repeat password"/>
+                        <MdPassword className="icon"/>
+                    </div>
+                    <div>
+                        <input type="number" readOnly value={this.stateFromLoginPage.balance}
+                               style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
+                        <MdNumbers className={"icon"}/>
+                    </div>
+
+                    <button onClick={this.edit}>submit</button>
+                </div>
+                <div>
+                    {this.state.successMessage}
+                    {this.showErrorCode()}
                 </div>
             </div>
         )

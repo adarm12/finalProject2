@@ -138,7 +138,7 @@ class LoginPage extends React.Component {
                                         <div></div>
                                     }
                                     {this.state.live ?
-                                        <LiveDashboard stateFromLogin={this.state}></LiveDashboard>
+                                        <LiveDashboard stateFromLogin={this.state}/>
                                         :
                                         <div></div>
                                     }

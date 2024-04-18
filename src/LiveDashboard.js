@@ -21,6 +21,7 @@ class LiveDashboard extends React.Component {
 
     componentDidMount() {
         this.live()
+        console.log("State from LoginPage:", this.stateFromLoginPage);
     }
 
     live = () => {
@@ -61,7 +62,6 @@ class LiveDashboard extends React.Component {
                 {!this.state.gambling ?
                     <div>
                         <label> Live Dashboard </label>
-                        <div></div>
                         {this.state.list.length !== 7 ?
                             <div>
                                 <label> Current Round </label>
@@ -85,22 +85,22 @@ class LiveDashboard extends React.Component {
                                             <td> VS</td>
                                             <td>{currentList.team2.teamName}</td>
                                             <td>{currentList.team2Goals}</td>
-                                            {/*{this.stateFromLoginPage.loginSuccess ?*/}
-                                            {/*    <button onClick={() => this.setState({*/}
-                                            {/*        gambling: true,*/}
-                                            {/*        balance: this.stateFromLoginPage.balance,*/}
-                                            {/*        team1: currentList.team1.teamName,*/}
-                                            {/*        team2: currentList.team2.teamName,*/}
-                                            {/*        team1Goals: currentList.team1Goals,*/}
-                                            {/*        team2Goals: currentList.team2Goals,*/}
-                                            {/*        team1WinRatio: currentList.team1WinRatio,*/}
-                                            {/*        team2WinRatio: currentList.team2WinRatio,*/}
-                                            {/*        drawRatio: currentList.drawRatio,*/}
-                                            {/*    })} style={{width: 50, height: 25}}> Bet </button>*/}
-                                            {/*    :*/}
-                                            {/*    <div>*/}
-                                            {/*    </div>*/}
-                                            {/*}*/}
+                                            {this.stateFromLoginPage.connectionMessage === "Successfully connected" ?
+                                                <button onClick={() => this.setState({
+                                                    gambling: true,
+                                                    balance: this.stateFromLoginPage.balance,
+                                                    team1: currentList.team1.teamName,
+                                                    team2: currentList.team2.teamName,
+                                                    team1Goals: currentList.team1Goals,
+                                                    team2Goals: currentList.team2Goals,
+                                                    team1WinRatio: currentList.team1WinRatio,
+                                                    team2WinRatio: currentList.team2WinRatio,
+                                                    drawRatio: currentList.drawRatio,
+                                                })} style={{width: 50, height: 25}}> Bet </button>
+                                                :
+                                                <div>
+                                                </div>
+                                            }
                                         </tr>
                                         </tbody>
                                     ))}
@@ -147,7 +147,7 @@ class LiveDashboard extends React.Component {
                     </div>
                     :
                     <PersonalGamblingPage stateFromLive={this.state}
-                                          changeScreen={this.changeScreen}
+                                          // changeScreen={this.changeScreen}
                     ></PersonalGamblingPage>
                 }
             </div>

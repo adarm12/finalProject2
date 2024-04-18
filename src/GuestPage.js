@@ -9,6 +9,10 @@ class GuestPage extends React.Component {
         leagueTable: false,
     }
 
+    componentDidMount() {
+
+    }
+
     render() {
         return (
             <div>
@@ -34,13 +38,17 @@ class GuestPage extends React.Component {
                     :
                     <div>
                         <div>
-                            {this.state.live &&
-                                <LiveDashboard></LiveDashboard>
+                            {this.state.live ?
+                                <LiveDashboard ></LiveDashboard>
+                                :
+                                <div></div>
                             }
                         </div>
                         <div>
-                            {this.state.leagueTable &&
+                            {this.state.leagueTable ?
                                 <LeagueTable></LeagueTable>
+                                :
+                                <div></div>
                             }
                         </div>
                     </div>

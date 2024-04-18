@@ -18,6 +18,7 @@ class GuestPage extends React.Component {
                             <button onClick={() => this.setState({
                                 live: true,
                                 showButtons: false,
+                                title: ""
                             })}>Live Dashboard
                             </button>
                         </div>
@@ -25,6 +26,7 @@ class GuestPage extends React.Component {
                             <button onClick={() => this.setState({
                                 leagueTable: true,
                                 showButtons: false,
+                                title: ""
                             })}>League Table
                             </button>
                         </div>

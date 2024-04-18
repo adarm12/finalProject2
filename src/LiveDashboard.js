@@ -14,7 +14,6 @@ class LiveDashboard extends React.Component {
         team1WinRatio: "",
         team2WinRatio: "",
         drawRatio: "",
-        scoresSet: [],
         result: "",
     }
 
@@ -34,9 +33,6 @@ class LiveDashboard extends React.Component {
         let context = this;
         event.onmessage = function (message) {
             const update = JSON.parse(message.data);
-            // if (update.list.length > this.state.list.length) {
-            //     this.finalScore(update.list);
-            // }
             context.setState({
                 list: update.list,
                 current: update.current,
@@ -44,43 +40,40 @@ class LiveDashboard extends React.Component {
         };
     }
 
-    finalScore = (list) => {
-        let scores = [];
-        for (let i = list.length - 1; i < list.length - 5; i++) {
-            scores.add(list.get(i));
-        }
-        this.setState({scoresSet: scores});
-    }
+    // finalScore = (list) => {
+    //     let scores = [];
+    //     for (let i = list.length - 1; i < list.length - 5; i++) {
+    //         scores.add(list.get(i));
+    //     }
+    //     this.setState({scoresSet: scores});
+    // }
 
-    changeScreen = () => {
-        this.setState({
-            gambling: !this.state.gambling
-        })
-    }
+    // changeScreen = () => {
+    //     this.setState({
+    //         gambling: !this.state.gambling
+    //     })
+    // }
 
 
     render() {
         return (
             <div>
-                {this.state.gambling === false ?
+                {!this.state.gambling ?
                     <div>
                         <label> Live Dashboard </label>
                         <div></div>
                         {this.state.list.length !== 7 ?
                             <div>
                                 <label> Current Round </label>
-                                <div>
-                                    {/*scoresSet: {this.state.scoresSet.length}*/}
-                                </div>
-                                <table style={{width: 600}}>
+                                <table style={{width: 575}}>
                                     <thead>
                                     <tr>
-                                        <td style={{width: 50}}>Round</td>
-                                        <td style={{width: 200}}>Home</td>
-                                        <td style={{width: 50}}>Goals</td>
-                                        <td style={{width: 50}}></td>
-                                        <td style={{width: 200}}>Away</td>
-                                        <td style={{width: 50}}>Goals</td>
+                                        <td>Round</td>
+                                        <td>Home</td>
+                                        <td>Goals</td>
+                                        <td></td>
+                                        <td>Away</td>
+                                        <td>Goals</td>
                                     </tr>
                                     </thead>
                                     {this.state.current.map((currentList, Index) => (
@@ -92,22 +85,22 @@ class LiveDashboard extends React.Component {
                                             <td> VS</td>
                                             <td>{currentList.team2.teamName}</td>
                                             <td>{currentList.team2Goals}</td>
-                                            {this.stateFromLoginPage.connectionMessage === "Successfully connected" ?
-                                                <button onClick={() => this.setState({
-                                                    gambling: true,
-                                                    balance: this.stateFromLoginPage.balance,
-                                                    team1: currentList.team1.teamName,
-                                                    team2: currentList.team2.teamName,
-                                                    team1Goals: currentList.team1Goals,
-                                                    team2Goals: currentList.team2Goals,
-                                                    team1WinRatio: currentList.team1WinRatio,
-                                                    team2WinRatio: currentList.team2WinRatio,
-                                                    drawRatio: currentList.drawRatio,
-                                                })} style={{width: 50, height: 25}}> Bet </button>
-                                                :
-                                                <div>
-                                                </div>
-                                            }
+                                            {/*{this.stateFromLoginPage.loginSuccess ?*/}
+                                            {/*    <button onClick={() => this.setState({*/}
+                                            {/*        gambling: true,*/}
+                                            {/*        balance: this.stateFromLoginPage.balance,*/}
+                                            {/*        team1: currentList.team1.teamName,*/}
+                                            {/*        team2: currentList.team2.teamName,*/}
+                                            {/*        team1Goals: currentList.team1Goals,*/}
+                                            {/*        team2Goals: currentList.team2Goals,*/}
+                                            {/*        team1WinRatio: currentList.team1WinRatio,*/}
+                                            {/*        team2WinRatio: currentList.team2WinRatio,*/}
+                                            {/*        drawRatio: currentList.drawRatio,*/}
+                                            {/*    })} style={{width: 50, height: 25}}> Bet </button>*/}
+                                            {/*    :*/}
+                                            {/*    <div>*/}
+                                            {/*    </div>*/}
+                                            {/*}*/}
                                         </tr>
                                         </tbody>
                                     ))}
@@ -121,14 +114,15 @@ class LiveDashboard extends React.Component {
                         {this.state.list.length > 0 ?
                             <div>
                                 <label> Previous Rounds </label>
-                                <table style={{width: 600}}>
+                                <table style={{width: 575}}>
                                     <thead>
                                     <tr>
-                                        <td style={{width: 50}}>Round</td>
-                                        <td style={{width: 200}}>Home</td>
-                                        <td style={{width: 50}}>Goals</td>
-                                        <td style={{width: 200}}>Away</td>
-                                        <td style={{width: 50}}>Goals</td>
+                                        <td>Round</td>
+                                        <td>Home</td>
+                                        <td>Goals</td>
+                                        <td></td>
+                                        <td>Away</td>
+                                        <td>Goals</td>
                                     </tr>
                                     </thead>
                                     {this.state.list.map((roundList, matchupsIndex) => (
@@ -138,6 +132,7 @@ class LiveDashboard extends React.Component {
                                                 <td>{matchup.round}</td>
                                                 <td className="column">{matchup.team1.teamName}</td>
                                                 <td>{matchup.team1Goals}</td>
+                                                <td>VS</td>
                                                 <td className="column">{matchup.team2.teamName}</td>
                                                 <td>{matchup.team2Goals}</td>
                                             </tr>
@@ -151,7 +146,9 @@ class LiveDashboard extends React.Component {
                         }
                     </div>
                     :
-                    <PersonalGamblingPage stateFromLive={this.state} changeScreen={this.changeScreen}></PersonalGamblingPage>
+                    <PersonalGamblingPage stateFromLive={this.state}
+                                          changeScreen={this.changeScreen}
+                    ></PersonalGamblingPage>
                 }
             </div>
 

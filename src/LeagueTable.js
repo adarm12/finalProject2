@@ -56,11 +56,9 @@ class LeagueTable extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <label className={"Main-title"}>League Table</label>
-                </div>
+                <label>League Table</label>
                 <table style={{width: 800}}>
-                    <thead className={"title"}>
+                    <thead>
                     <tr>
                         <td>Team Name</td>
                         <td>Points</td>
@@ -69,35 +67,19 @@ class LeagueTable extends React.Component {
                         <td>Defensive Rating</td>
                         <td>Player Injuries</td>
                     </tr>
-
                     </thead>
                     {this.state.teamsList.map((teams, teamsIndex) => (
                         <tbody>
+                        {this.sortTable()}
                         <tr key={teamsIndex}/>
-                        <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.teamName} </td>
+                        <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.teamName}</td>
                         <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.points}</td>
                         <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.goalsDifference}</td>
                         <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.offensiveRating}</td>
                         <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.defensiveRating}</td>
                         <td style={{background: this.highestLeagueStyle(teamsIndex)}}>{teams.playerInjuries}</td>
-                        {this.sortTable()}
                         </tbody>
                     ))}
-
-
-                    {/*</thead>*/}
-                    {/*{this.state.teamsList.map((teams, teamsIndex) => (*/}
-                    {/*    <tbody className={"LeagueTable-css"}>*/}
-                    {/*    <tr key={teamsIndex}/>*/}
-                    {/*    <td style={{width: 200}}>{teams.teamName}</td>*/}
-                    {/*    <td>{teams.points}</td>*/}
-                    {/*    <td style={{width: 150}}>{teams.goalsDifference}</td>*/}
-                    {/*    <td style={{width: 150}}>{teams.offensiveRating}</td>*/}
-                    {/*    <td style={{width: 150}}>{teams.defensiveRating}</td>*/}
-                    {/*    <td style={{width: 150}}>{teams.playerInjuries}</td>*/}
-                    {/*    {this.sortTable()}*/}
-                    {/*    </tbody>*/}
-                    {/*))}*/}
                 </table>
             </div>
         );

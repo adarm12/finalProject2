@@ -53,7 +53,7 @@ class PersonalGamblingPage extends React.Component {
     }
 
     bet = () => {
-        this.props.changeScreen();
+        // this.props.changeScreen();
 
         this.updateBet("pick", this.state.choose);
         this.updateBet("money", this.state.bet);

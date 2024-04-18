@@ -17,6 +17,7 @@ class LoginPage extends React.Component {
         balance: "",
         errorCode: null,
         editProfile: false,
+        loginSuccess: false,
         connectionMessage: "",
         live: false,
         leagueTable: false,
@@ -36,6 +37,7 @@ class LoginPage extends React.Component {
             if (response.data.success) {
                 console.log("Successfully connected");
                 this.setState({connectionMessage: "Successfully connected"});
+                this.setState({loginSuccess: true});
                 this.setState({username: response.data.user.username});
                 this.setState({balance: response.data.user.balance});
                 const cookies = new Cookies(null, {path: '/'});

@@ -15,6 +15,7 @@ class LoginPage extends React.Component {
         email: "",
         password: "",
         balance: "",
+        secret: "",
         errorCode: null,
         editProfile: false,
         loginSuccess: false,
@@ -40,6 +41,7 @@ class LoginPage extends React.Component {
                 this.setState({loginSuccess: true});
                 this.setState({username: response.data.user.username});
                 this.setState({balance: response.data.user.balance});
+                this.setState({secret: response.data.user.secret});
                 const cookies = new Cookies(null, {path: '/'});
                 cookies.set('id', response.data.id);
                 cookies.set('secret', response.data.secret);
@@ -70,7 +72,7 @@ class LoginPage extends React.Component {
         return (
             <div>
                 <div>
-                    {this.state.connectionMessage !== "Successfully connected" ?
+                    {!this.state.loginSuccess ?
                         <div className={"DSignUp"}>
                             <label> {this.state.title} </label>
                             <div>

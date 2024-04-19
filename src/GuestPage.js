@@ -18,14 +18,14 @@ class GuestPage extends React.Component {
             <div>
                 {this.state.showButtons ?
                     <div className={"DSignUp"}>
-                        <div>
-                            <button onClick={() => this.setState({
-                                live: true,
-                                showButtons: false,
-                                title: ""
-                            })}>Live Dashboard
-                            </button>
-                        </div>
+                        {/*<div>*/}
+                        {/*    <button onClick={() => this.setState({*/}
+                        {/*        live: true,*/}
+                        {/*        showButtons: false,*/}
+                        {/*        title: ""*/}
+                        {/*    })}>Live Dashboard*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
                         <div>
                             <button onClick={() => this.setState({
                                 leagueTable: true,
@@ -37,13 +37,13 @@ class GuestPage extends React.Component {
                     </div>
                     :
                     <div>
-                        <div>
-                            {this.state.live ?
-                                <LiveDashboard ></LiveDashboard>
-                                :
-                                <div></div>
-                            }
-                        </div>
+                        {/*<div>*/}
+                        {/*    {this.state.live ?*/}
+                        {/*        <LiveDashboard ></LiveDashboard>*/}
+                        {/*        :*/}
+                        {/*        <div></div>*/}
+                        {/*    }*/}
+                        {/*</div>*/}
                         <div>
                             {this.state.leagueTable ?
                                 <LeagueTable></LeagueTable>

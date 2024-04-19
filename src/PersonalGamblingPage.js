@@ -1,28 +1,59 @@
 import React from "react";
 import {MdPassword} from "react-icons/md";
+import {sendApiPostRequest} from "./ApiRequests";
+import Cookies from "universal-cookie";
 
 class PersonalGamblingPage extends React.Component {
 
     state = {
-        newBet: {
-            pick: "",
-            money: "",
-            ratio: "",
-        },
-        result: "",
+        result: 5,
+        userSecret: "",
+        matchupId: "",
         balance: "",
         choose: "",
         bet: "",
-        error: "",
+        errorCode: "",
 
     }
-
     stateFromLivePage = this.props.stateFromLive;
 
     componentDidMount() {
-        this.setState({balance: this.stateFromLivePage.balance})
-        this.check()
     }
+
+    bet = () => {
+        sendApiPostRequest("http://localhost:9123/place-bet", {
+            user: this.stateFromLivePage.userSecret,
+            betSum: this.state.bet,
+            matchupId: this.stateFromLivePage.matchupId,
+            result: this.state.result
+        }, (response) => {
+            if (response.data.success) {
+                console.log("Your bet saved")
+                this.setState({errorCode: response.data.errorCode})
+            } else
+                this.setState({errorCode: response.data.errorCode})
+        })
+    }
+
+    showErrorCode = () => {
+        let errorMessage = "";
+        switch (this.state.errorCode) {
+            case 16:
+                errorMessage = "Your bet is too low";
+                break;
+            case 17:
+                errorMessage = "Your bet is too high";
+                break;
+            case 18:
+                errorMessage = "Choose a result for the game";
+                break;
+            case -1:
+                errorMessage = "Your bet saved";
+                break;
+        }
+        return errorMessage;
+    }
+
 
     inputChange = (key, event) => {
         this.setState({
@@ -31,125 +62,65 @@ class PersonalGamblingPage extends React.Component {
     }
 
 
-    check = () => {
-        if (this.stateFromLivePage.team1Goals > this.stateFromLivePage.team2Goals) {
-            this.setState({result: this.stateFromLivePage.team1});
-        }
-        if (this.stateFromLivePage.team1Goals < this.stateFromLivePage.team2Goals) {
-            this.setState({result: this.stateFromLivePage.team2});
-        }
-        if (this.stateFromLivePage.team1Goals === this.stateFromLivePage.team2Goals) {
-            this.setState({result: "draw"});
-        }
+    render() {
+        return (
+            <div style={{
+                fontSize: 25,
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                display: "flex"
+            }}>
+                <label>Personal Gambling Page</label>
+                <div> Your balance: {this.stateFromLivePage.balance}</div>
+                <div>
+                    {this.stateFromLivePage.team1} VS {this.stateFromLivePage.team2}
+                </div>
+                <div>
+                    Choose:
+                    <button onClick={() => this.setState({
+                        result: 1,
+                    })}>
+                        {this.stateFromLivePage.team1} wins
+                    </button>
+                    <button onClick={() => this.setState({
+                        result: 2,
+                    })}>
+                        {this.stateFromLivePage.team2} wins
+                    </button>
+                    <button onClick={() => this.setState({
+                        result: 0,
+                    })}>
+                        draw
+                    </button>
+                </div>
+                <div>
+                    <input type={"number"}
+                           value={this.state.bet}
+                           onChange={(event) => this.inputChange("bet", event)}
+                           placeholder="Enter your bet"/>
+                    <button onClick={this.bet}>
+                        Bet
+                    </button>
+                </div>
+                {/*<div>*/}
+                {/*    bet: {this.state.bet}*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    userSecret: {this.stateFromLivePage.userSecret}*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    result: {this.state.result}*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    matchupId: {this.stateFromLivePage.matchupId}*/}
+                {/*</div>*/}
+                <div>
+                    {this.showErrorCode()}
+                </div>
+            </div>
+        )
     }
-
-    updateBet = (field, value) => {
-        this.setState({
-            newBet: {
-                ...this.state.newBet,
-                [field]: value,
-            }
-        });
-    }
-
-    bet = () => {
-        // this.props.changeScreen();
-
-        this.updateBet("pick", this.state.choose);
-        this.updateBet("money", this.state.bet);
-        if (this.state.choose === "draw") {
-            this.updateBet("ratio", this.stateFromLivePage.drawRatio);
-        } else if (this.state.choose === this.stateFromLivePage.team1) {
-            this.updateBet("ratio", this.stateFromLivePage.team1WinRatio);
-        } else if (this.state.choose === this.stateFromLivePage.team2) {
-            this.updateBet("ratio", this.stateFromLivePage.team2WinRatio);
-        }
-
-
-
-        if (this.state.bet > this.state.balance)
-            this.setState({error: "The bet must be lower than the balance"})
-        if (this.state.bet < 0)
-            this.setState({error: "The bet must be higher than the 0"})
-        if (this.state.bet < this.state.balance && this.state.bet > 0) {
-            if (this.state.result === this.stateFromLivePage.team1 && this.state.choose === this.stateFromLivePage.team1) {
-                this.setState({balance: (this.state.balance - this.state.bet) + (this.state.bet * this.stateFromLivePage.team1WinRatio)})
-            } else if (this.state.result === this.stateFromLivePage.team2 && this.state.choose === this.stateFromLivePage.team2) {
-                this.setState({balance: (this.state.balance - this.state.bet) + (this.state.bet * this.stateFromLivePage.team2WinRatio)})
-            } else if (this.state.result === "draw" && this.state.choose === "draw") {
-                this.setState({balance: (this.state.balance - this.state.bet) + (this.state.bet * this.stateFromLivePage.drawRatio)})
-            } else {
-                this.setState({balance: this.state.balance - this.state.bet})
-            }
-        }
-
-    }
-
-
-render()
-{
-    return (
-        <div style={{
-            fontSize: 25,
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            display: "flex"
-        }}>
-            <label>Personal Gambling Page</label>
-            <div> Your balance: {this.state.balance}</div>
-            <div>
-                {this.stateFromLivePage.team1} VS {this.stateFromLivePage.team2}
-            </div>
-            <div>
-                Choose:
-                <button onClick={() => this.setState({
-                    choose: this.stateFromLivePage.team1,
-                })}>
-                    {this.stateFromLivePage.team1} wins
-                </button>
-                <button onClick={() => this.setState({
-                    choose: this.stateFromLivePage.team2,
-                })}>
-                    {this.stateFromLivePage.team2} wins
-                </button>
-                <button onClick={() => this.setState({
-                    choose: "draw",
-                })}>
-                    draw
-                </button>
-            </div>
-            <div>
-                <input type={"number"}
-                       value={this.state.bet}
-                       onChange={(event) => this.inputChange("bet", event)}
-                       placeholder="Enter your bet"/>
-                <button onClick={this.bet}>
-                    Bet
-                </button>
-            </div>
-            <div>
-                bet: {this.state.bet}
-            </div>
-            <div>
-                choose: {this.state.choose}
-            </div>
-            <div>
-                result: {this.state.result}
-            </div>
-            <div>
-                newBet pick: {this.state.newBet.pick}
-                newBet money: {this.state.newBet.money}
-                newBet ratio: {this.state.newBet.ratio}
-            </div>
-            {this.stateFromLivePage.team1} {this.stateFromLivePage.team2}
-            {this.stateFromLivePage.team1Goals} {this.stateFromLivePage.team2Goals}
-            <div>
-                Error: {this.state.error}
-            </div>
-        </div>
-    )
-}
 }
 
 export default PersonalGamblingPage;

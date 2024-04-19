@@ -11,7 +11,6 @@ class EditProfilePage extends React.Component {
         newPassword: "",
         repeatNewPassword: "",
         errorCode: null,
-        successMessage: "",
     }
 
     stateFromLoginPage = this.props.stateFromLogin;
@@ -29,10 +28,8 @@ class EditProfilePage extends React.Component {
                 repeatNewPassword: this.state.repeatNewPassword,
             },
             (response) => {
-                console.log()
                 if (response.data.success) {
                     console.log("The new details have been successfully saved");
-                    this.setState({successMessage: "The new details have been successfully saved"})
                 } else
                     this.setState({errorCode: response.data.errorCode})
             })
@@ -59,7 +56,7 @@ class EditProfilePage extends React.Component {
             case 12:
                 errorMessage = "Password is not the same";
                 break;
-            case 0:
+            case -1:
                 errorMessage = "The new details have been successfully saved";
                 break;
         }
@@ -123,7 +120,6 @@ class EditProfilePage extends React.Component {
                     <button onClick={this.edit}>submit</button>
                 </div>
                 <div>
-                    {this.state.successMessage}
                     {this.showErrorCode()}
                 </div>
             </div>

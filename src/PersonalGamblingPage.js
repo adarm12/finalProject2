@@ -20,21 +20,6 @@ class PersonalGamblingPage extends React.Component {
     componentDidMount() {
     }
 
-    bet = () => {
-        sendApiPostRequest("http://localhost:9123/place-bet", {
-            user: this.stateFromLivePage.userSecret,
-            betSum: this.state.bet,
-            matchupId: this.stateFromLivePage.matchupId,
-            result: this.state.result
-        }, (response) => {
-            if (response.data.success) {
-                console.log("Your bet saved")
-                this.setState({errorCode: response.data.errorCode})
-            } else
-                this.setState({errorCode: response.data.errorCode})
-        })
-    }
-
     showErrorCode = () => {
         let errorMessage = "";
         switch (this.state.errorCode) {
@@ -47,11 +32,32 @@ class PersonalGamblingPage extends React.Component {
             case 18:
                 errorMessage = "Choose a result for the game";
                 break;
+            case 19:
+                errorMessage = "No matchup";
+                break;
+            case 20:
+                errorMessage = "The round is over";
+                break;
             case -1:
                 errorMessage = "Your bet saved";
                 break;
         }
         return errorMessage;
+    }
+
+    enterBet = () => {
+        sendApiPostRequest("http://localhost:9123/place-bet", {
+            user: this.stateFromLivePage.userSecret,
+            betSum: this.state.bet,
+            matchupId: this.stateFromLivePage.matchupId,
+            result: this.state.result
+        }, (response) => {
+            if (response.data.success) {
+                console.log("Your bet saved")
+                this.setState({errorCode: response.data.errorCode})
+            } else
+                this.setState({errorCode: response.data.errorCode})
+        })
     }
 
 
@@ -99,7 +105,7 @@ class PersonalGamblingPage extends React.Component {
                            value={this.state.bet}
                            onChange={(event) => this.inputChange("bet", event)}
                            placeholder="Enter your bet"/>
-                    <button onClick={this.bet}>
+                    <button onClick={this.enterBet}>
                         Bet
                     </button>
                 </div>

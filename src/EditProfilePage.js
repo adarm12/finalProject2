@@ -30,6 +30,7 @@ class EditProfilePage extends React.Component {
             (response) => {
                 if (response.data.success) {
                     console.log("The new details have been successfully saved");
+                    this.setState({errorCode: response.data.errorCode})
                 } else
                     this.setState({errorCode: response.data.errorCode})
             })

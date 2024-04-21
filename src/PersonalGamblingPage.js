@@ -36,7 +36,7 @@ class PersonalGamblingPage extends React.Component {
                 errorMessage = "No matchup";
                 break;
             case 20:
-                errorMessage = "The round is over";
+                errorMessage = "The round is started";
                 break;
             case -1:
                 errorMessage = "Your bet saved";
@@ -108,6 +108,7 @@ class PersonalGamblingPage extends React.Component {
                     <button onClick={this.enterBet}>
                         Bet
                     </button>
+                    <button onClick={this.props.changeScreen}>Go Back</button>
                 </div>
                 {/*<div>*/}
                 {/*    bet: {this.state.bet}*/}

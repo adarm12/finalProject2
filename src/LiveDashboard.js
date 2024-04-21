@@ -51,11 +51,11 @@ class LiveDashboard extends React.Component {
     //     this.setState({scoresSet: scores});
     // }
 
-    // changeScreen = () => {
-    //     this.setState({
-    //         gambling: !this.state.gambling
-    //     })
-    // }
+    changeScreen = () => {
+        this.setState({
+            gambling: !this.state.gambling
+        })
+    }
 
 
     render() {
@@ -151,7 +151,7 @@ class LiveDashboard extends React.Component {
                     </div>
                     :
                     <PersonalGamblingPage stateFromLive={this.state}
-                        // changeScreen={this.changeScreen}
+                        changeScreen={this.changeScreen}
                     ></PersonalGamblingPage>
                 }
             </div>

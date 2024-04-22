@@ -13,26 +13,37 @@ class GuestPage extends React.Component {
 
     }
 
+    changeTable = () => {
+        this.setState({
+            leagueTable: !this.state.leagueTable,
+            showButtons: !this.state.showButtons,
+        })
+    }
+
     render() {
         return (
             <div>
                 {this.state.showButtons ?
-                    <div className={"DSignUp"}>
-                        {/*<div>*/}
-                        {/*    <button onClick={() => this.setState({*/}
-                        {/*        live: true,*/}
-                        {/*        showButtons: false,*/}
-                        {/*        title: ""*/}
-                        {/*    })}>Live Dashboard*/}
-                        {/*    </button>*/}
-                        {/*</div>*/}
-                        <div>
-                            <button onClick={() => this.setState({
-                                leagueTable: true,
-                                showButtons: false,
-                                title: ""
-                            })}>League Table
-                            </button>
+                    <div>
+                        <button onClick={this.props.changeGuest}>Go Back</button>
+                        <div className={"DSignUp"}>
+                            <label> Guest </label>
+                            {/*<div>*/}
+                            {/*    <button onClick={() => this.setState({*/}
+                            {/*        live: true,*/}
+                            {/*        showButtons: false,*/}
+                            {/*        title: ""*/}
+                            {/*    })}>Live Dashboard*/}
+                            {/*    </button>*/}
+                            {/*</div>*/}
+                            <div>
+                                <button onClick={() => this.setState({
+                                    leagueTable: true,
+                                    showButtons: false,
+                                    title: ""
+                                })}>League Table
+                                </button>
+                            </div>
                         </div>
                     </div>
                     :
@@ -46,7 +57,7 @@ class GuestPage extends React.Component {
                         {/*</div>*/}
                         <div>
                             {this.state.leagueTable ?
-                                <LeagueTable></LeagueTable>
+                                <LeagueTable changeTable={this.changeTable}/>
                                 :
                                 <div></div>
                             }

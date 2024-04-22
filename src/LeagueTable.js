@@ -52,10 +52,10 @@ class LeagueTable extends React.Component {
             return '#CCFFCC';
     }
 
-
     render() {
         return (
             <div>
+                <button onClick={this.props.changeTable}>Go Back</button>
                 <label>League Table</label>
                 <table style={{width: 800}}>
                     <thead>

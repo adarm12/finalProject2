@@ -10,7 +10,8 @@ class SignUpPage extends React.Component {
         password: "",
         repeatPassword: "",
         balance: 0,
-        text: ""
+        errorCode: "",
+        signUpSuccess: false,
     }
 
     componentDidMount() {
@@ -27,31 +28,48 @@ class SignUpPage extends React.Component {
         }, (response) => {
             if (response.data.success) {
                 console.log("You have successfully signed up");
-                this.setState({text: "You have successfully signed up"});
+                this.setState({signUpSuccess: true})
             } else {
                 console.log("***********Error");
-                if (response.data.errorCode === 3)
-                    this.setState({text: "No username entered"});
-                if (response.data.errorCode === 7)
-                    this.setState({text: "No email entered"});
-                if (response.data.errorCode === 6)
-                    this.setState({text: "Invalid mail"});
-                if (response.data.errorCode === 4)
-                    this.setState({text: "No password entered"});
-                if (response.data.errorCode === 12)
-                    this.setState({text: "Password is not the same"});
-                if (response.data.errorCode === 10)
-                    this.setState({text: "Password length should be at least 8 characters"});
-                if (response.data.errorCode === 14)
-                    this.setState({text: "The password must contain @ or !"});
-                if (response.data.errorCode === 15)
-                    this.setState({text: "The balance should be bigger then 50"});
-                // setTimeout(() => {
-                //     this.setState({text: ""}); // לאפס את ההודעה לאחר 5 שניות
-                // }, 5000);
             }
+            this.setState({errorCode: response.data.errorCode})
         })
     }
+
+    showErrorCode = () => {
+        let errorMessage = "";
+        switch (this.state.errorCode) {
+            case 3:
+                errorMessage = "No username entered";
+                break;
+            case 7:
+                errorMessage = "No email entered";
+                break;
+            case 6:
+                errorMessage = "Invalid mail";
+                break;
+            case 4:
+                errorMessage = "No password entered";
+                break;
+            case 12:
+                errorMessage = "Password is not the same";
+                break;
+            case 10:
+                errorMessage = "Password is not the same";
+                break;
+            case 14:
+                errorMessage = "The password must contain @ or !";
+                break;
+            case 15:
+                errorMessage = "The balance should be bigger then 50";
+                break;
+            case -1:
+                errorMessage = "You have successfully signed up";
+                break;
+        }
+        return errorMessage;
+    }
+
 
     inputChange = (key, event) => {
         this.setState({
@@ -59,62 +77,64 @@ class SignUpPage extends React.Component {
         })
     }
 
-    // isValidEmail = (email) => {
-    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //     return emailRegex.test(email);
-    // }
-    //
-    // samePassword = () => {
-    //     return (this.state.password.equals(this.state.repeatPassword));
-    // }
-    //
 
     render() {
         return (
-            <div className={"DSignUp"}>
-                <label> Sign Up </label>
-                <div>
-                    <input type="text"
-                           value={this.state.username}
-                           onChange={(event) => this.inputChange("username", event)}
-                           placeholder="Enter username"
-                    />
-                    <FaRegUser className="icon"/>
+            <div>
+                <div className={"DSignUp"}>
+                    {!this.state.signUpSuccess ?
+                        <div>
+                            <button onClick={this.props.changeSignUp}>Go Back</button>
+                            <label> Sign Up </label>
+                            <div>
+                                <input type="text"
+                                       value={this.state.username}
+                                       onChange={(event) => this.inputChange("username", event)}
+                                       placeholder="Enter username"
+                                />
+                                <FaRegUser className="icon"/>
+                            </div>
+                            <div>
+                                <input type="text"
+                                       value={this.state.email}
+                                       onChange={(event) => this.inputChange("email", event)}
+                                       placeholder="Enter email"
+                                />
+                                <MdEmail className="icon"/>
+                            </div>
+                            <div>
+                                <input type={"password"}
+                                       value={this.state.password}
+                                       onChange={(event) => this.inputChange("password", event)}
+                                       placeholder="Enter password"
+                                />
+                                <MdPassword className="icon"/>
+                            </div>
+                            <div>
+                                <input type={"password"}
+                                       value={this.state.repeatPassword}
+                                       onChange={(event) => this.inputChange("repeatPassword", event)}
+                                       placeholder="Repeat password"
+                                />
+                                <MdPassword className="icon"/>
+                            </div>
+                            <div>
+                                <input type={"number"}
+                                       value={this.state.balance}
+                                       onChange={(event) => this.inputChange("balance", event)}
+                                       placeholder="Enter balance"
+                                />
+                                <MdNumbers className={"icon"}/>
+                            </div>
+                            <button onClick={this.signUp}>Sign Up</button>
+                            <div>
+                                {this.showErrorCode()}
+                            </div>
+                        </div>
+                        :
+                        <button onClick={this.props.changeSignUp}>Login</button>
+                    }
                 </div>
-                <div>
-                    <input type="text"
-                           value={this.state.email}
-                           onChange={(event) => this.inputChange("email", event)}
-                           placeholder="Enter email"
-                    />
-                    <MdEmail className="icon"/>
-                </div>
-                <div>
-                    <input type={"password"}
-                           value={this.state.password}
-                           onChange={(event) => this.inputChange("password", event)}
-                           placeholder="Enter password"
-                    />
-                    <MdPassword className="icon"/>
-                </div>
-                <div>
-                    <input type={"password"}
-                           value={this.state.repeatPassword}
-                           onChange={(event) => this.inputChange("repeatPassword", event)}
-                           placeholder="Repeat password"
-                    />
-                    <MdPassword className="icon"/>
-                </div>
-                <div>
-                    <input type={"number"}
-                           value={this.state.balance}
-                           onChange={(event) => this.inputChange("balance", event)}
-                           placeholder="Enter balance"
-                    />
-                    <MdNumbers className={"icon"}/>
-                </div>
-                <button onClick={this.signUp}>Sign Up</button>
-                {this.state.text}
             </div>
         )
     }

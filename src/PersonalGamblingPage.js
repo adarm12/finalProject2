@@ -24,10 +24,10 @@ class PersonalGamblingPage extends React.Component {
         let errorMessage = "";
         switch (this.state.errorCode) {
             case 16:
-                errorMessage = "Your bet is too low";
+                errorMessage = "The bet should be higher than zero";
                 break;
             case 17:
-                errorMessage = "Your bet is too high";
+                errorMessage = "The bet should be lower than zero";
                 break;
             case 18:
                 errorMessage = "Choose a result for the game";
@@ -36,7 +36,7 @@ class PersonalGamblingPage extends React.Component {
                 errorMessage = "No matchup";
                 break;
             case 20:
-                errorMessage = "The round is started";
+                errorMessage = "The round started";
                 break;
             case -1:
                 errorMessage = "Your bet saved";
@@ -54,9 +54,8 @@ class PersonalGamblingPage extends React.Component {
         }, (response) => {
             if (response.data.success) {
                 console.log("Your bet saved")
-                this.setState({errorCode: response.data.errorCode})
-            } else
-                this.setState({errorCode: response.data.errorCode})
+            }
+            this.setState({errorCode: response.data.errorCode})
         })
     }
 
@@ -77,6 +76,7 @@ class PersonalGamblingPage extends React.Component {
                 flexDirection: "column",
                 display: "flex"
             }}>
+                <button onClick={this.props.changeScreen}>Go Back</button>
                 <label>Personal Gambling Page</label>
                 <div> Your balance: {this.stateFromLivePage.balance}</div>
                 <div>
@@ -108,20 +108,7 @@ class PersonalGamblingPage extends React.Component {
                     <button onClick={this.enterBet}>
                         Bet
                     </button>
-                    <button onClick={this.props.changeScreen}>Go Back</button>
                 </div>
-                {/*<div>*/}
-                {/*    bet: {this.state.bet}*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    userSecret: {this.stateFromLivePage.userSecret}*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    result: {this.state.result}*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    matchupId: {this.stateFromLivePage.matchupId}*/}
-                {/*</div>*/}
                 <div>
                     {this.showErrorCode()}
                 </div>

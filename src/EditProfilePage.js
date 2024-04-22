@@ -2,7 +2,6 @@ import React from "react";
 import {sendApiGetRequest, sendApiPostRequest} from "./ApiRequests";
 import {FaRegUser} from "react-icons/fa";
 import {MdEmail, MdNumbers, MdPassword} from "react-icons/md";
-import SuccessConnection from "./SuccessConnection";
 
 class EditProfilePage extends React.Component {
 
@@ -30,9 +29,8 @@ class EditProfilePage extends React.Component {
             (response) => {
                 if (response.data.success) {
                     console.log("The new details have been successfully saved");
-                    this.setState({errorCode: response.data.errorCode})
-                } else
-                    this.setState({errorCode: response.data.errorCode})
+                }
+                this.setState({errorCode: response.data.errorCode})
             })
     }
 
@@ -72,58 +70,62 @@ class EditProfilePage extends React.Component {
 
     render() {
         return (
-            <div className={"DSignUp"}>
-                <label> Edit Profile </label>
-                <div>
+            <div>
+                <button onClick={this.props.changeEdit}>Go Back</button>
+                <div className={"DSignUp"}>
+                    <label> Edit Profile </label>
                     <div>
-                        <input type="text"
-                               readOnly value={this.stateFromLoginPage.email}
-                               style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
-                        <MdEmail className="icon"/>
-                    </div>
-                    <div>
-                        <input type="text" readOnly value={this.stateFromLoginPage.username}
-                               style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
-                        <FaRegUser className="icon"/>
-                    </div>
-                    <div>
-                        <input type={"text"}
-                               value={this.state.newUsername}
-                               onChange={(event) => this.inputChange("newUsername", event)}
-                               placeholder="Enter new username"/>
-                        <FaRegUser className="icon"/>
-                    </div>
-                    <div>
-                        <input type="text" readOnly value={this.stateFromLoginPage.password}
-                               style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
-                        <MdPassword className="icon"/>
-                    </div>
-                    <div>
-                        <input type={"password"}
-                               value={this.state.newPassword}
-                               onChange={(event) => this.inputChange("newPassword", event)}
-                               placeholder="Enter new Password"/>
-                        <MdPassword className="icon"/>
-                    </div>
-                    <div>
-                        <input type={"password"}
-                               value={this.state.repeatNewPassword}
-                               onChange={(event) => this.inputChange("repeatNewPassword", event)}
-                               placeholder="Repeat password"/>
-                        <MdPassword className="icon"/>
-                    </div>
-                    <div>
-                        <input type="number" readOnly value={this.stateFromLoginPage.balance}
-                               style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
-                        <MdNumbers className={"icon"}/>
-                    </div>
+                        <div>
+                            <input type="text"
+                                   readOnly value={this.stateFromLoginPage.email}
+                                   style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
+                            <MdEmail className="icon"/>
+                        </div>
+                        <div>
+                            <input type="text" readOnly value={this.stateFromLoginPage.username}
+                                   style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
+                            <FaRegUser className="icon"/>
+                        </div>
+                        <div>
+                            <input type={"text"}
+                                   value={this.state.newUsername}
+                                   onChange={(event) => this.inputChange("newUsername", event)}
+                                   placeholder="Enter new username"/>
+                            <FaRegUser className="icon"/>
+                        </div>
+                        <div>
+                            <input type="text" readOnly value={this.stateFromLoginPage.password}
+                                   style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
+                            <MdPassword className="icon"/>
+                        </div>
+                        <div>
+                            <input type={"password"}
+                                   value={this.state.newPassword}
+                                   onChange={(event) => this.inputChange("newPassword", event)}
+                                   placeholder="Enter new Password"/>
+                            <MdPassword className="icon"/>
+                        </div>
+                        <div>
+                            <input type={"password"}
+                                   value={this.state.repeatNewPassword}
+                                   onChange={(event) => this.inputChange("repeatNewPassword", event)}
+                                   placeholder="Repeat password"/>
+                            <MdPassword className="icon"/>
+                        </div>
+                        <div>
+                            <input type="number" readOnly value={this.stateFromLoginPage.balance}
+                                   style={{backgroundColor: 'rgba(193,193,193,0.8)'}}/>
+                            <MdNumbers className={"icon"}/>
+                        </div>
 
-                    <button onClick={this.edit}>submit</button>
-                </div>
-                <div>
-                    {this.showErrorCode()}
+                        <button onClick={this.edit}>submit</button>
+                    </div>
+                    <div>
+                        {this.showErrorCode()}
+                    </div>
                 </div>
             </div>
+
         )
     }
 }

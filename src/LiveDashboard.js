@@ -6,17 +6,13 @@ class LiveDashboard extends React.Component {
     state = {
         list: [],
         current: [],
+        bets: [],
         team1: "",
         team2: "",
         balance: "",
         userSecret: "",
         gambling: false,
         matchupId: "",
-        // team2Goals: "",
-        // team1WinRatio: "",
-        // team2WinRatio: "",
-        // drawRatio: "",
-        // result: "",
     }
 
     stateFromLoginPage = this.props.stateFromLogin;
@@ -39,17 +35,10 @@ class LiveDashboard extends React.Component {
             context.setState({
                 list: update.list,
                 current: update.current,
+                bets: update.bets,
             })
         };
     }
-
-    // finalScore = (list) => {
-    //     let scores = [];
-    //     for (let i = list.length - 1; i < list.length - 5; i++) {
-    //         scores.add(list.get(i));
-    //     }
-    //     this.setState({scoresSet: scores});
-    // }
 
     changeScreen = () => {
         this.setState({
@@ -61,8 +50,10 @@ class LiveDashboard extends React.Component {
     render() {
         return (
             <div>
+                <button onClick={this.props.changeLive}>Go Back</button>
                 {!this.state.gambling ?
                     <div>
+                        {/*{this.state.bets.length}*/}
                         <label> Live Dashboard </label>
                         {this.state.list.length !== 7 ?
                             <div>
@@ -95,11 +86,6 @@ class LiveDashboard extends React.Component {
                                                     matchupId: currentList.id,
                                                     team1: currentList.team1.teamName,
                                                     team2: currentList.team2.teamName,
-                                                    // team1Goals: currentList.team1Goals,
-                                                    // team2Goals: currentList.team2Goals,
-                                                    // team1WinRatio: currentList.team1WinRatio,
-                                                    // team2WinRatio: currentList.team2WinRatio,
-                                                    // drawRatio: currentList.drawRatio,
                                                 })} style={{width: 50, height: 25}}> Bet </button>
                                                 :
                                                 <div>
@@ -151,7 +137,7 @@ class LiveDashboard extends React.Component {
                     </div>
                     :
                     <PersonalGamblingPage stateFromLive={this.state}
-                        changeScreen={this.changeScreen}
+                                          changeScreen={this.changeScreen}
                     ></PersonalGamblingPage>
                 }
             </div>

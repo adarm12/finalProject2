@@ -1,11 +1,11 @@
 import React from "react";
 import Cookies from 'universal-cookie';
 import {sendApiGetRequest, sendApiPostRequest} from "./ApiRequests";
-import PersonalGamblingPage from "./PersonalGamblingPage";
 import LiveDashboard from "./LiveDashboard";
 import EditProfilePage from "./EditProfilePage";
 import {MdEmail, MdPassword} from "react-icons/md";
 import LeagueTable from "./LeagueTable";
+import GamblingPage from "./GamblingPage";
 
 
 class LoginPage extends React.Component {
@@ -31,7 +31,6 @@ class LoginPage extends React.Component {
 
     login = () => {
         sendApiPostRequest("http://localhost:9123/login", {
-            // username: this.state.username,
             email: this.state.email,
             password: this.state.password,
         }, (response) => {
@@ -68,11 +67,33 @@ class LoginPage extends React.Component {
         })
     }
 
+    changeLive = () => {
+        this.setState({
+            live: !this.state.live,
+            showButtons: !this.state.showButtons,
+        })
+    }
+
+    changeEdit = () => {
+        this.setState({
+            editProfile: !this.state.editProfile,
+            showButtons: !this.state.showButtons,
+        })
+    }
+
+    changeTable = () => {
+        this.setState({
+            leagueTable: !this.state.leagueTable,
+            showButtons: !this.state.showButtons,
+        })
+    }
+
     render() {
         return (
             <div>
-                <div>
-                    {!this.state.loginSuccess ?
+                {!this.state.loginSuccess ?
+                    <div>
+                        <button onClick={this.props.changeLogin}>Go Back</button>
                         <div className={"DSignUp"}>
                             <label> {this.state.title} </label>
                             <div>
@@ -92,74 +113,78 @@ class LoginPage extends React.Component {
                             <button onClick={this.login}>Login</button>
                             {this.state.connectionMessage}
                         </div>
-                        :
-                        <div>
-                            {this.state.showButtons ?
-                                <div className={"DSignUp"}>
-                                    <div>
-                                        <button onClick={() => this.setState({
-                                            editProfile: true,
-                                            showButtons: false,
-                                            title: ""
-                                        })}>Edit
-                                            Profile
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button onClick={() => this.setState({
-                                            live: true,
-                                            showButtons: false,
-                                            title: ""
-                                        })}>Live
-                                            Dashboard
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button onClick={() => this.setState({
-                                            leagueTable: true,
-                                            showButtons: false,
-                                            title: ""
-                                        })}>League Table
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button onClick={() => this.setState({
-                                            personalGambling: true,
-                                            showButtons: false,
-                                            title: ""
-                                        })}>Personal
-                                            Gambling
-                                        </button>
-                                    </div>
-                                </div>
-                                :
+                    </div>
+                    :
+                    <div>
+                        {this.state.showButtons ?
+                            <div className={"DSignUp"}>
                                 <div>
-                                    {this.state.editProfile ?
-                                        <EditProfilePage stateFromLogin={this.state}/>
-                                        :
-                                        <div></div>
-                                    }
-                                    {this.state.live ?
-                                        <LiveDashboard stateFromLogin={this.state}/>
-                                        :
-                                        <div></div>
-                                    }
-                                    {this.state.leagueTable ?
-                                        <LeagueTable></LeagueTable>
-                                        :
-                                        <div></div>
-                                    }
-                                    {this.state.personalGambling ?
-                                        <PersonalGamblingPage></PersonalGamblingPage>
-                                        :
-                                        <div></div>
-                                    }
+                                    <button onClick={() => this.setState({
+                                        editProfile: true,
+                                        showButtons: false,
+                                        title: ""
+                                    })}>Edit
+                                        Profile
+                                    </button>
                                 </div>
-                            }
-                        </div>
-                    }
-                </div>
-
+                                <div>
+                                    <button onClick={() => this.setState({
+                                        live: true,
+                                        showButtons: false,
+                                        title: ""
+                                    })}>Live
+                                        Dashboard
+                                    </button>
+                                </div>
+                                <div>
+                                    <button onClick={() => this.setState({
+                                        leagueTable: true,
+                                        showButtons: false,
+                                        title: ""
+                                    })}>League Table
+                                    </button>
+                                </div>
+                                {/*<div>*/}
+                                {/*    <button onClick={() => this.setState({*/}
+                                {/*        personalGambling: true,*/}
+                                {/*        showButtons: false,*/}
+                                {/*        title: ""*/}
+                                {/*    })}>Personal*/}
+                                {/*        Gambling*/}
+                                {/*    </button>*/}
+                                {/*</div>*/}
+                            </div>
+                            :
+                            <div>
+                                {this.state.editProfile ?
+                                    <EditProfilePage stateFromLogin={this.state}
+                                                     changeEdit={this.changeEdit}
+                                    />
+                                    :
+                                    <div></div>
+                                }
+                                {this.state.live ?
+                                    <LiveDashboard stateFromLogin={this.state}
+                                                   changeLive={this.changeLive}
+                                    />
+                                    :
+                                    <div></div>
+                                }
+                                {this.state.leagueTable ?
+                                    <LeagueTable
+                                        changeTable={this.changeTable}/>
+                                    :
+                                    <div></div>
+                                }
+                                {/*{this.state.personalGambling ?*/}
+                                {/*    <GamblingPage stateFromLogin={this.state}/>*/}
+                                {/*    :*/}
+                                {/*    <div></div>*/}
+                                {/*}*/}
+                            </div>
+                        }
+                    </div>
+                }
             </div>
         )
     }

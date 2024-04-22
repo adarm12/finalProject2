@@ -5,7 +5,7 @@ import LiveDashboard from "./LiveDashboard";
 import EditProfilePage from "./EditProfilePage";
 import {MdEmail, MdPassword} from "react-icons/md";
 import LeagueTable from "./LeagueTable";
-import GamblingPage from "./GamblingPage";
+import GamblingHistory from "./GamblingHistory";
 
 
 class LoginPage extends React.Component {
@@ -22,6 +22,7 @@ class LoginPage extends React.Component {
         connectionMessage: "",
         live: false,
         leagueTable: false,
+        gamblingHistory: false,
         showButtons: true,
     }
 
@@ -88,6 +89,13 @@ class LoginPage extends React.Component {
         })
     }
 
+    changeHistory = () => {
+        this.setState({
+            gamblingHistory: !this.state.gamblingHistory,
+            showButtons: !this.state.showButtons,
+        })
+    }
+
     render() {
         return (
             <div>
@@ -144,15 +152,15 @@ class LoginPage extends React.Component {
                                     })}>League Table
                                     </button>
                                 </div>
-                                {/*<div>*/}
-                                {/*    <button onClick={() => this.setState({*/}
-                                {/*        personalGambling: true,*/}
-                                {/*        showButtons: false,*/}
-                                {/*        title: ""*/}
-                                {/*    })}>Personal*/}
-                                {/*        Gambling*/}
-                                {/*    </button>*/}
-                                {/*</div>*/}
+                                <div>
+                                    <button onClick={() => this.setState({
+                                        gamblingHistory: true,
+                                        showButtons: false,
+                                        title: ""
+                                    })}>Gambling
+                                        History
+                                    </button>
+                                </div>
                             </div>
                             :
                             <div>
@@ -176,11 +184,12 @@ class LoginPage extends React.Component {
                                     :
                                     <div></div>
                                 }
-                                {/*{this.state.personalGambling ?*/}
-                                {/*    <GamblingPage stateFromLogin={this.state}/>*/}
-                                {/*    :*/}
-                                {/*    <div></div>*/}
-                                {/*}*/}
+                                {this.state.gamblingHistory ?
+                                    <GamblingHistory stateFromLogin={this.state}
+                                                     changeHistory={this.changeHistory}/>
+                                    :
+                                    <div></div>
+                                }
                             </div>
                         }
                     </div>

@@ -6,7 +6,6 @@ class LiveDashboard extends React.Component {
     state = {
         list: [],
         current: [],
-        bets: [],
         team1: "",
         team2: "",
         balance: "",
@@ -35,7 +34,6 @@ class LiveDashboard extends React.Component {
             context.setState({
                 list: update.list,
                 current: update.current,
-                bets: update.bets,
             })
         };
     }
@@ -53,7 +51,6 @@ class LiveDashboard extends React.Component {
                 <button onClick={this.props.changeLive}>Go Back</button>
                 {!this.state.gambling ?
                     <div>
-                        bets: {this.state.bets.length}
                         <label> Live Dashboard </label>
                         {this.state.list.length !== 7 ?
                             <div>

@@ -81,10 +81,10 @@ class SignUpPage extends React.Component {
     render() {
         return (
             <div>
-                <div className={"DSignUp"}>
-                    {!this.state.signUpSuccess ?
-                        <div>
-                            <button onClick={this.props.changeSignUp}>Go Back</button>
+                {!this.state.signUpSuccess ?
+                    <div>
+                        <button onClick={this.props.changeSignUp}>Go Back</button>
+                        <div className={"DSignUp"}>
                             <label> Sign Up </label>
                             <div>
                                 <input type="text"
@@ -131,10 +131,10 @@ class SignUpPage extends React.Component {
                                 {this.showErrorCode()}
                             </div>
                         </div>
-                        :
-                        <button onClick={this.props.changeSignUp}>Login</button>
-                    }
-                </div>
+                    </div>
+                    :
+                    <button onClick={this.props.changeSignUp}>Login</button>
+                }
             </div>
         )
     }

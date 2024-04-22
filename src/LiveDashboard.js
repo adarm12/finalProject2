@@ -53,7 +53,7 @@ class LiveDashboard extends React.Component {
                 <button onClick={this.props.changeLive}>Go Back</button>
                 {!this.state.gambling ?
                     <div>
-                        {/*{this.state.bets.length}*/}
+                        bets: {this.state.bets.length}
                         <label> Live Dashboard </label>
                         {this.state.list.length !== 7 ?
                             <div>
